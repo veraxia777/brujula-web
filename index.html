@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brújula — Fe y Alabanza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #0b1120;
+    --deep: #0f1a2e;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7a;
+    --cream: #f5f0e8;
+    --text: #d4cfc4;
+    --muted: #7a8090;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 75% 25%, rgba(201,168,76,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 15% 45%, rgba(201,168,76,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(11,17,32,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-church {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+
+  .compass-wrapper {
+    position: relative;
+    width: min(340px, 80vw);
+    height: min(340px, 80vw);
+    margin-bottom: 40px;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .compass-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow:
+      0 0 60px rgba(201,168,76,0.35),
+      0 0 120px rgba(201,168,76,0.15),
+      0 0 200px rgba(201,168,76,0.07);
+  }
+
+  .compass-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    animation: spin 30s linear infinite;
+  }
+
+  .compass-ring::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-tagline {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .tagline-item {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .tagline-dot {
+    width: 4px;
+    height: 4px;
+    background: rgba(201,168,76,0.4);
+    border-radius: 50%;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: var(--navy);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 18px 40px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 40px rgba(201,168,76,0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(201,168,76,0.4);
+  }
+
+  .cta-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .divider {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+  }
+
+  /* FEATURES */
+  .features {
+    position: relative;
+    z-index: 1;
+    padding: 100px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .features-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300;
+    text-align: center;
+    color: var(--cream);
+    margin-bottom: 64px;
+  }
+
+  .features-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 20px;
+    padding: 36px 32px;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    background: rgba(201,168,76,0.05);
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .feature-text { font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
+
+  /* VERSE */
+  .verse-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    max-width: 600px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+
+  .verse-ref {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* CTA BOTTOM */
+  .cta-bottom {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px 120px;
+    text-align: center;
+  }
+
+  .cta-bottom-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .cta-bottom-title em { font-style: italic; color: var(--gold); }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-left { font-size: 0.8rem; color: var(--muted); }
+
+  .footer-church { font-size: 0.8rem; color: var(--muted); text-align: right; }
+  .footer-church strong { color: var(--gold); display: block; font-weight: 500; }
+
+  .powered {
+    font-size: 0.7rem;
+    color: rgba(122,128,144,0.5);
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .powered a { color: rgba(201,168,76,0.5); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 20px 24px; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-church { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🧭 Brújula</div>
+  <div class="nav-church">Fe y Alabanza · Arlington, VA</div>
+</nav>
+
+<section class="hero">
+  <div class="compass-wrapper">
+    <img src="compass.jpg" alt="Brújula">
+    <div class="compass-ring"></div>
+  </div>
+
+  <div class="hero-tag">Acompañamiento pastoral 24/7</div>
+  <h1 class="hero-title">Brú<em>jula</em></h1>
+
+  <div class="hero-tagline">
+    <span class="tagline-item">0% Tradición</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">100% Jesús</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">No apto para religiosos</span>
+  </div>
+
+  <p class="hero-subtitle">Cuando no sabes a dónde ir, ella te orienta.</p>
+
+  <div class="cta-group">
+    <a href="https://t.me/brujula_ai_bot" target="_blank" class="btn-primary">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.025 9.54c-.148.666-.537.833-1.084.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.671z"/>
+      </svg>
+      Hablar con Brújula
+    </a>
+    <span class="cta-note">Gratis · En Telegram · Sin registro</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="features">
+  <h2 class="features-title">Un corazón que <em>escucha</em></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🕊️</span>
+      <div class="feature-title">Amor primero</div>
+      <p class="feature-text">Brújula valida lo que sientes antes de hablar. Como un pastor que se sienta contigo, no frente a ti.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📖</span>
+      <div class="feature-title">Guía bíblica</div>
+      <p class="feature-text">Proverbios, Efesios, Mateo — la Palabra de Dios entra de forma natural en la conversación, no como sermón.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌙</span>
+      <div class="feature-title">Siempre disponible</div>
+      <p class="feature-text">A las 2am cuando no puedes dormir, un domingo, un feriado — Brújula siempre está.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌎</span>
+      <div class="feature-title">Español e inglés</div>
+      <p class="feature-text">Detecta tu idioma automáticamente. Habla como quieras, Brújula te entiende.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🤝</span>
+      <div class="feature-title">Conecta tu comunidad</div>
+      <p class="feature-text">Cuando necesitas más, Brújula te invita a Fe y Alabanza — donde hay personas reales que te esperan.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <div class="feature-title">Espacio seguro</div>
+      <p class="feature-text">Tu conversación es tuya. Sin juicios, sin condenas. Solo acompañamiento.</p>
+    </div>
+  </div>
+</section>
+
+<section class="verse-section">
+  <div class="divider"></div>
+  <br><br>
+  <p class="verse">"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
+  <p class="verse-ref">Mateo 11:28</p>
+  <br><br>
+  <div class="divider"></div>
+</section>
+
+<section class="cta-bottom">
+  <h2 class="cta-bottom-title">¿Tienes algo en el<br><em>corazón hoy?</em></h2>
+  <a href="https://t.me/brujula_ai_bot" target="_blank" class="btn-primary">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.025 9.54c-.148.666-.537.833-1.084.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.671z"/>
+    </svg>
+    Abrir Brújula en Telegram
+  </a>
+</section>
+
+<footer>
+  <div class="footer-left">© 2026 veraxIA SpA</div>
+  <div class="footer-church">
+    <strong>Fe y Alabanza · Asambleas de Dios</strong>
+    2100 N Quebec St, Arlington, VA
+  </div>
+</footer>
+<p class="powered">Desarrollado con ❤️ por <a href="#">veraxIA</a> · Villa Alegre, Chile</p>
+
+</body>
+</html>
