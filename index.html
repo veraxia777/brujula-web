@@ -7,15 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --night: #0d0d14;
-    --deep: #13131f;
-    --card: #1a1a2e;
-    --gold: #c9a84c;
-    --gold2: #e8c96a;
-    --warm: #f5ede0;
-    --muted: #8a8aa0;
-    --text: #f0eee8;
-    --accent: #e07b54;
+    --night: #080c14;
+    --deep: #0c1120;
+    --card: #111827;
+    --gold: #8ab4d4;
+    --gold2: #c8dff0;
+    --warm: #e8f0f8;
+    --muted: #7a90a8;
+    --text: #ddeaf5;
+    --accent: #4a90c4;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,16 +60,22 @@
     text-align: center;
     padding: 2rem 1.5rem;
     position: relative;
-    background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(74,144,196,0.15) 0%, transparent 70%);
   }
 
   .compass-img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
+    width: 260px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
     margin-bottom: 1.5rem;
-    box-shadow: 0 0 40px rgba(201,168,76,0.3);
+    filter: drop-shadow(0 0 30px rgba(138,180,212,0.4)) drop-shadow(0 0 60px rgba(72,130,180,0.2));
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
   }
 
   .hero-tag {
@@ -109,8 +115,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background: linear-gradient(135deg, var(--gold), var(--gold2));
-    color: #0d0d14;
+    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
+    color: #080c14;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
@@ -118,13 +124,13 @@
     border-radius: 50px;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+    box-shadow: 0 8px 30px rgba(74,144,196,0.4);
     letter-spacing: 0.01em;
   }
 
   .cta-main:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(201,168,76,0.5);
+    box-shadow: 0 14px 40px rgba(74,144,196,0.55);
   }
 
   .trust-line {
@@ -297,7 +303,7 @@
 
   .bible-quote {
     background: rgba(201,168,76,0.06);
-    border-left: 3px solid var(--gold);
+    border-left: 3px solid var(--accent);
     padding: 1.2rem 1.5rem;
     border-radius: 0 12px 12px 0;
     margin: 2rem 0;
@@ -370,7 +376,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    background: linear-gradient(90deg, #4a90c4, #8ab4d4);
   }
 
   .founder-flag {
@@ -482,7 +488,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, var(--accent), #c05a38);
+    background: linear-gradient(135deg, #4a90c4, #2a6090);
     color: white;
     font-weight: 600;
     font-size: 1rem;
@@ -492,12 +498,12 @@
     border: none;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 6px 20px rgba(224,123,84,0.3);
+    box-shadow: 0 6px 20px rgba(74,144,196,0.35);
   }
 
   .btn-donate:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(224,123,84,0.45);
+    box-shadow: 0 10px 28px rgba(74,144,196,0.5);
   }
 
   /* DONATE MODAL */
@@ -583,7 +589,7 @@
   .btn-modal-send {
     width: 100%;
     padding: 0.9rem;
-    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
     color: #0d0d14;
     font-weight: 700;
     font-size: 1rem;
@@ -622,14 +628,14 @@
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 900;
-    background: linear-gradient(135deg, var(--gold), var(--gold2));
-    color: #0d0d14;
+    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
+    color: #080c14;
     font-weight: 700;
     font-size: 0.9rem;
     padding: 0.8rem 1.4rem;
     border-radius: 50px;
     text-decoration: none;
-    box-shadow: 0 6px 24px rgba(201,168,76,0.4);
+    box-shadow: 0 6px 24px rgba(74,144,196,0.45);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -643,8 +649,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 6px 24px rgba(201,168,76,0.4); }
-    50% { box-shadow: 0 6px 36px rgba(201,168,76,0.65); }
+    0%, 100% { box-shadow: 0 6px 24px rgba(74,144,196,0.4); }
+    50% { box-shadow: 0 6px 36px rgba(74,144,196,0.7); }
   }
 
   /* FOOTER */
@@ -862,8 +868,8 @@
 <!-- FOOTER -->
 <footer>
   <p>© 2026 <a href="#">veraxIA SpA</a> · Villa Alegre, Chile<br>
-  <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a> · 2100 N Quebec St, Arlington, VA<br>
-  Pastor: Félix González</p>
+  <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a> · Arlington, VA<br>
+  <em style="color: var(--muted); font-size:0.78rem;">Porque nadie debería perderse sin que alguien lo note.</em></p>
 </footer>
 
 <!-- DONATE MODAL -->
