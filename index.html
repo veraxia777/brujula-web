@@ -3,493 +3,910 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brújula — Fe y Alabanza</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Brújula — Cuando no sabes qué hacer con tu vida</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --navy: #0b1120;
-    --deep: #0f1a2e;
+    --night: #0d0d14;
+    --deep: #13131f;
+    --card: #1a1a2e;
     --gold: #c9a84c;
-    --gold-light: #e8cc7a;
-    --cream: #f5f0e8;
-    --text: #d4cfc4;
-    --muted: #7a8090;
+    --gold2: #e8c96a;
+    --warm: #f5ede0;
+    --muted: #8a8aa0;
+    --text: #f0eee8;
+    --accent: #e07b54;
   }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--navy);
-    color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
+    background: var(--night);
+    color: var(--text);
     overflow-x: hidden;
   }
 
+  /* STARS BACKGROUND */
   body::before {
     content: '';
     position: fixed;
-    inset: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-image:
-      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(2px 2px at 75% 25%, rgba(201,168,76,0.3) 0%, transparent 100%),
-      radial-gradient(2px 2px at 15% 45%, rgba(201,168,76,0.2) 0%, transparent 100%);
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 22%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 33% 65%, rgba(255,255,255,0.35) 0%, transparent 100%);
     pointer-events: none;
     z-index: 0;
   }
 
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 24px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background: linear-gradient(to bottom, rgba(11,17,32,0.95) 0%, transparent 100%);
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-  }
-
-  .nav-church {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
   /* HERO */
   .hero {
-    position: relative;
-    z-index: 1;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 120px 24px 80px;
-  }
-
-  .compass-wrapper {
+    padding: 2rem 1.5rem;
     position: relative;
-    width: min(340px, 80vw);
-    height: min(340px, 80vw);
-    margin-bottom: 40px;
-    animation: float 5s ease-in-out infinite;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
   }
 
-  .compass-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow:
-      0 0 60px rgba(201,168,76,0.35),
-      0 0 120px rgba(201,168,76,0.15),
-      0 0 200px rgba(201,168,76,0.07);
+  .compass-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: spin-slow 20s linear infinite;
+    display: inline-block;
   }
 
-  .compass-ring {
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,168,76,0.3);
-    animation: spin 30s linear infinite;
-  }
-
-  .compass-ring::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-  }
-
-  @keyframes spin {
+  @keyframes spin-slow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-14px); }
-  }
-
   .hero-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.2s;
-  }
-
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 10vw, 6rem);
-    font-weight: 300;
-    line-height: 1;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.4s;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .hero-tagline {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-
-  .tagline-item {
     font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0.9;
   }
 
-  .tagline-dot {
-    width: 4px;
-    height: 4px;
-    background: rgba(201,168,76,0.4);
-    border-radius: 50%;
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--warm);
+    max-width: 700px;
+    margin-bottom: 1.2rem;
   }
 
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-    font-weight: 300;
+  .hero h1 em {
     font-style: italic;
+    color: var(--gold2);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
     color: var(--muted);
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.6s;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
   }
 
-  .cta-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.8s;
-  }
-
-  .btn-primary {
+  .cta-main {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: var(--gold);
-    color: var(--navy);
-    text-decoration: none;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #0d0d14;
     font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 18px 40px;
-    border-radius: 100px;
-    letter-spacing: 0.02em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 40px rgba(201,168,76,0.25);
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 2.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+    letter-spacing: 0.01em;
   }
 
-  .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 40px rgba(201,168,76,0.4);
+  .cta-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(201,168,76,0.5);
   }
 
-  .cta-note {
-    font-size: 0.8rem;
+  .trust-line {
+    margin-top: 1rem;
+    font-size: 0.82rem;
     color: var(--muted);
     letter-spacing: 0.05em;
   }
 
-  .divider {
+  .trust-line span { margin: 0 0.4rem; opacity: 0.5; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    color: var(--muted);
+    font-size: 1.4rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* PAIN SECTION */
+  .pain-section {
+    background: var(--deep);
+    padding: 5rem 1.5rem;
     position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
   }
 
-  /* FEATURES */
-  .features {
-    position: relative;
-    z-index: 1;
-    padding: 100px 24px;
-    max-width: 1000px;
+  .section-inner {
+    max-width: 700px;
     margin: 0 auto;
   }
 
-  .features-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 300;
-    text-align: center;
-    color: var(--cream);
-    margin-bottom: 64px;
-  }
-
-  .features-title em {
+  .pain-lead {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
     font-style: italic;
-    color: var(--gold);
+    color: var(--warm);
+    margin-bottom: 2.5rem;
+    line-height: 1.4;
+  }
+
+  .pain-list {
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .pain-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 1.05rem;
+    color: #c5c3d6;
+    line-height: 1.5;
+  }
+
+  .pain-list li .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .pain-heavy {
+    font-size: 1.1rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid rgba(201,168,76,0.3);
+  }
+
+  .hook-text {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(224,123,84,0.08));
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hook-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    color: var(--gold2);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .hook-text p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #c5c3d6;
+  }
+
+  /* FEATURES SECTION */
+  .features-section {
+    padding: 5rem 1.5rem;
+    background: var(--night);
+  }
+
+  .features-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    text-align: center;
+    color: var(--warm);
+    margin-bottom: 0.6rem;
+  }
+
+  .features-section h2 em { color: var(--gold2); font-style: italic; }
+
+  .features-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
   }
 
   .features-grid {
+    max-width: 800px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
   }
 
   .feature-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(201,168,76,0.1);
-    border-radius: 20px;
-    padding: 36px 32px;
-    transition: all 0.3s ease;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 1.6rem;
+    transition: transform 0.2s, border-color 0.2s;
   }
 
   .feature-card:hover {
-    background: rgba(201,168,76,0.05);
-    border-color: rgba(201,168,76,0.25);
     transform: translateY(-4px);
+    border-color: rgba(201,168,76,0.25);
   }
 
-  .feature-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .feature-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--warm); }
+  .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
-  .feature-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--cream);
-    margin-bottom: 12px;
-  }
-
-  .feature-text { font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
-
-  /* VERSE */
-  .verse-section {
-    position: relative;
-    z-index: 1;
-    padding: 80px 24px;
+  /* JESUS SECTION */
+  .jesus-section {
+    background: var(--deep);
+    padding: 5rem 1.5rem;
     text-align: center;
   }
 
-  .verse {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 300;
+  .jesus-section .section-inner { text-align: left; }
+
+  .jesus-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--warm);
+    line-height: 1.3;
+    margin-bottom: 1.2rem;
+  }
+
+  .jesus-section h2 em { color: var(--gold2); font-style: italic; }
+
+  .bible-quote {
+    background: rgba(201,168,76,0.06);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin: 2rem 0;
+  }
+
+  .bible-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
     font-style: italic;
-    color: var(--cream);
-    max-width: 600px;
-    margin: 0 auto 16px;
+    color: var(--warm);
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+  }
+
+  .bible-quote cite {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  .jesus-section p.body {
+    font-size: 1rem;
+    color: #c5c3d6;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  /* PROVENANCE — FOUNDERS */
+  .founders-section {
+    padding: 5rem 1.5rem;
+    background: var(--night);
+  }
+
+  .founders-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--warm);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .founders-section .sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+  }
+
+  .founders-grid {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .founder-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .founder-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+  }
+
+  .founder-flag {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .founder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--warm);
+    margin-bottom: 0.2rem;
+  }
+
+  .founder-role {
+    font-size: 0.78rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+  }
+
+  .founder-story {
+    font-size: 0.9rem;
+    color: #b0aec0;
+    line-height: 1.75;
+  }
+
+  /* CTA FINAL */
+  .cta-section {
+    padding: 6rem 1.5rem;
+    background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.1) 0%, transparent 70%),
+                var(--deep);
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--warm);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .cta-section h2 em { color: var(--gold2); font-style: italic; }
+
+  .cta-section p {
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s;
+  }
+
+  .cta-secondary:hover {
+    border-color: rgba(201,168,76,0.3);
+    color: var(--warm);
+  }
+
+  /* DONATE SECTION */
+  .donate-section {
+    padding: 4rem 1.5rem;
+    background: var(--night);
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .donate-inner {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .donate-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--warm);
+    margin-bottom: 0.6rem;
+  }
+
+  .donate-section p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
     line-height: 1.6;
   }
 
-  .verse-ref {
-    font-size: 0.8rem;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  /* CTA BOTTOM */
-  .cta-bottom {
-    position: relative;
-    z-index: 1;
-    padding: 80px 24px 120px;
-    text-align: center;
-  }
-
-  .cta-bottom-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 300;
-    color: var(--cream);
-    margin-bottom: 32px;
-    line-height: 1.2;
-  }
-
-  .cta-bottom-title em { font-style: italic; color: var(--gold); }
-
-  footer {
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid rgba(201,168,76,0.1);
-    padding: 32px 40px;
-    display: flex;
-    justify-content: space-between;
+  .btn-donate {
+    display: inline-flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), #c05a38);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(224,123,84,0.3);
   }
 
-  .footer-left { font-size: 0.8rem; color: var(--muted); }
+  .btn-donate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(224,123,84,0.45);
+  }
 
-  .footer-church { font-size: 0.8rem; color: var(--muted); text-align: right; }
-  .footer-church strong { color: var(--gold); display: block; font-weight: 500; }
+  /* DONATE MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
 
-  .powered {
-    font-size: 0.7rem;
-    color: rgba(122,128,144,0.5);
-    letter-spacing: 0.1em;
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    max-width: 480px;
+    width: 100%;
     text-align: center;
-    padding-bottom: 24px;
     position: relative;
-    z-index: 1;
+    animation: modal-in 0.3s ease;
   }
 
-  .powered a { color: rgba(201,168,76,0.5); text-decoration: none; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  @media (max-width: 600px) {
-    nav { padding: 20px 24px; }
-    footer { flex-direction: column; text-align: center; }
-    .footer-church { text-align: center; }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    background: none; border: none;
+    color: var(--muted); font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
   }
+
+  .modal-close:hover { color: var(--warm); }
+
+  .modal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--warm);
+    margin-bottom: 0.6rem;
+  }
+
+  .modal p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal input[type="email"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: var(--warm);
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .modal input[type="email"]:focus {
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  .modal input::placeholder { color: var(--muted); }
+
+  .btn-modal-send {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #0d0d14;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-modal-send:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .modal-thanks {
+    display: none;
+    animation: modal-in 0.3s ease;
+  }
+
+  .modal-thanks .big-emoji { font-size: 3rem; margin-bottom: 1rem; }
+
+  .modal-thanks h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold2);
+    margin-bottom: 0.6rem;
+  }
+
+  .modal-thanks p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* FLOATING CTA */
+  .float-cta {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 900;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #0d0d14;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(201,168,76,0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .float-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 32px rgba(201,168,76,0.55);
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 6px 24px rgba(201,168,76,0.4); }
+    50% { box-shadow: 0 6px 36px rgba(201,168,76,0.65); }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  footer p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 1.5rem 0;
+  }
+
+  .divider.center { margin-left: auto; margin-right: auto; }
+
+  /* URGENT FEELING */
+  .urgent {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(224,123,84,0.06));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    color: #c5c3d6;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .urgent strong { color: var(--gold2); }
+
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">🧭 Brújula</div>
-  <div class="nav-church">Fe y Alabanza · Arlington, VA</div>
-</nav>
+<!-- FLOATING CTA -->
+<a class="float-cta" href="https://t.me/brujula_ai_bot" target="_blank">
+  🧭 Hablar ahora
+</a>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="compass-wrapper">
-    <img src="compass.jpg" alt="Brújula">
-    <div class="compass-ring"></div>
-  </div>
+  <div class="compass-icon">🧭</div>
+  <p class="hero-tag">Fe y Alabanza · Arlington, VA</p>
+  <h1>Cuando no sabes qué hacer <em>con tu vida…</em></h1>
+  <p class="hero-sub">No tienes que seguir cargando esto solo.</p>
+  <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">
+    ✉️ Hablar en Telegram
+  </a>
+  <p class="trust-line">Gratis<span>·</span>Privado<span>·</span>Sin juicios<span>·</span>Tu propio idioma</p>
+  <div class="scroll-hint">↓</div>
+</section>
 
-  <div class="hero-tag">Acompañamiento pastoral 24/7</div>
-  <h1 class="hero-title">Brú<em>jula</em></h1>
+<!-- PAIN SECTION -->
+<section class="pain-section">
+  <div class="section-inner">
+    <p class="pain-lead">Tal vez hoy te sientes así…</p>
+    <ul class="pain-list">
+      <li><span class="dot"></span>Tienes todo… pero no tienes paz</li>
+      <li><span class="dot"></span>Tomas decisiones… pero no estás seguro</li>
+      <li><span class="dot"></span>Estás cansado… pero sigues adelante</li>
+      <li><span class="dot"></span>Nadie sabe lo que estás cargando</li>
+    </ul>
+    <p class="pain-heavy">Y lo más difícil… es que no sabes con quién hablar.</p>
 
-  <div class="hero-tagline">
-    <span class="tagline-item">0% Tradición</span>
-    <span class="tagline-dot"></span>
-    <span class="tagline-item">100% Jesús</span>
-    <span class="tagline-dot"></span>
-    <span class="tagline-item">No apto para religiosos</span>
-  </div>
+    <div class="hook-text">
+      <h2>No es que estés fallando…<br>Es que estás tratando de avanzar sin dirección.</h2>
+      <p>Puedes hacer muchas cosas bien… y aun así sentirte perdido. Para eso existe <strong>Brújula</strong>. Un espacio donde puedes hablar, ser escuchado y recibir dirección real para tu vida.</p>
+    </div>
 
-  <p class="hero-subtitle">Cuando no sabes a dónde ir, ella te orienta.</p>
+    <p style="font-size:0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem;">No es religión. No es imposición.</p>
+    <p style="font-size:1.05rem; color: #c5c3d6; line-height: 1.8; margin-bottom: 2rem;">👉 Es acompañamiento y consejos — <em>al final, tú decides.</em></p>
 
-  <div class="cta-group">
-    <a href="https://t.me/brujula_ai_bot" target="_blank" class="btn-primary">
-      <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px">
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.025 9.54c-.148.666-.537.833-1.084.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.671z"/>
-      </svg>
-      Hablar con Brújula
-    </a>
-    <span class="cta-note">Gratis · En Telegram · Sin registro</span>
+    <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">Hablar con Brújula</a>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- JESUS SECTION -->
+<section class="jesus-section">
+  <div class="section-inner">
+    <h2>Jesús no vino a complicarte la vida…<br><em>vino a guiarte.</em></h2>
+    <div class="divider"></div>
+    <p class="body">Él dijo algo que no era una idea, era una promesa real:</p>
+    <div class="bible-quote">
+      <p>"Yo soy el camino"</p>
+      <cite>Juan 14:6</cite>
+    </div>
+    <p class="body">No es un concepto religioso. Es un camino real para tu vida, hoy.</p>
+    <div class="bible-quote">
+      <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
+      <cite>Mateo 11:28</cite>
+    </div>
+    <div class="urgent">
+      <strong>Tal vez no estás aquí por casualidad.</strong><br>
+      Tal vez esto es exactamente lo que necesitabas hoy.
+    </div>
+    <p class="body" style="margin-bottom: 2rem;">No tienes que seguir solo. No lo guardes más.</p>
+    <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">
+      🧭 Hablar ahora
+    </a>
+    <p style="font-size:0.8rem; color: var(--muted); margin-top: 0.8rem;">100% privado · Gratis · Sin juicios</p>
+  </div>
+</section>
 
-<section class="features">
-  <h2 class="features-title">Un corazón que <em>escucha</em></h2>
+<!-- FEATURES -->
+<section class="features-section">
+  <h2>¿Qué encontrarás en <em>Brújula?</em></h2>
+  <p class="features-sub">Como un consejero que se sienta contigo</p>
   <div class="features-grid">
     <div class="feature-card">
-      <span class="feature-icon">🕊️</span>
-      <div class="feature-title">Amor primero</div>
-      <p class="feature-text">Brújula valida lo que sientes antes de hablar. Como un pastor que se sienta contigo, no frente a ti.</p>
+      <div class="feature-icon">🕊️</div>
+      <h3>Alguien que te escucha</h3>
+      <p>Valida lo que sientes antes de hablar. No viene a juzgarte, viene a acompañarte.</p>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">📖</span>
-      <div class="feature-title">Guía bíblica</div>
-      <p class="feature-text">Proverbios, Efesios, Mateo — la Palabra de Dios entra de forma natural en la conversación, no como sermón.</p>
+      <div class="feature-icon">📖</div>
+      <h3>Guía bíblica real</h3>
+      <p>Proverbios, Efesios, Mateo — la Palabra entra de forma natural, no como sermón.</p>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">🌙</span>
-      <div class="feature-title">Siempre disponible</div>
-      <p class="feature-text">A las 2am cuando no puedes dormir, un domingo, un feriado — Brújula siempre está.</p>
+      <div class="feature-icon">🌙</div>
+      <h3>Siempre disponible</h3>
+      <p>A las 2am, un domingo, un feriado. Brújula siempre está cuando la necesitas.</p>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">🌎</span>
-      <div class="feature-title">Español e inglés</div>
-      <p class="feature-text">Detecta tu idioma automáticamente. Habla como quieras, Brújula te entiende.</p>
+      <div class="feature-icon">🌎</div>
+      <h3>Cualquier idioma</h3>
+      <p>Detecta tu idioma automáticamente. Habla como quieras, Brújula te entiende.</p>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">🤝</span>
-      <div class="feature-title">Conecta tu comunidad</div>
-      <p class="feature-text">Cuando necesitas más, Brújula te invita a Fe y Alabanza — donde hay personas reales que te esperan.</p>
+      <div class="feature-icon">🤝</div>
+      <h3>Comunidad real</h3>
+      <p>Cuando necesitas más, te conecta con Fe y Alabanza — personas reales que te esperan.</p>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">🔒</span>
-      <div class="feature-title">Espacio seguro</div>
-      <p class="feature-text">Tu conversación es tuya. Sin juicios, sin condenas. Solo acompañamiento.</p>
+      <div class="feature-icon">🔒</div>
+      <h3>Espacio seguro</h3>
+      <p>Tu conversación es tuya. Sin juicios, sin condenas. Solo acompañamiento genuino.</p>
     </div>
   </div>
 </section>
 
-<section class="verse-section">
-  <div class="divider"></div>
-  <br><br>
-  <p class="verse">"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
-  <p class="verse-ref">Mateo 11:28</p>
-  <br><br>
-  <div class="divider"></div>
+<!-- FOUNDERS -->
+<section class="founders-section">
+  <h2>Quiénes somos</h2>
+  <p class="sub">Dos historias, una misión</p>
+  <div class="founders-grid">
+
+    <div class="founder-card">
+      <div class="founder-flag">🇺🇸</div>
+      <p class="founder-name">Melissa Reyes Maldonado</p>
+      <p class="founder-role">Cofundadora · USA</p>
+      <p class="founder-story">
+        Viví durante 13 años lejos de Jesús, de los 15 a los 28. Fui testigo de realidades muy duras. Vi niños perder a sus padres en las drogas, amigos caer en la seducción del dinero fácil, otros terminar en la cárcel o desaparecer.<br><br>
+        Pero lo más impactante fue esto: nadie, ni una sola vez, nos habló de Jesús y su plan de salvación. Siempre se repetía lo mismo: desesperación, vacío, falta de esperanza.<br><br>
+        Hoy, viendo "la otra cara", entiendo que hay lugares donde casi nadie quiere ir… pero donde más se necesita luz. Correccionales, orfanatos, hogares marcados por violencia, adicciones. Lugares reales, con corazones heridos que claman en silencio.<br><br>
+        <em style="color: var(--gold2);">Por eso nació Brújula ✨</em>
+      </p>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-flag">🇨🇱</div>
+      <p class="founder-name">Daniela Morán Brito</p>
+      <p class="founder-role">Cofundadora · Chile</p>
+      <p class="founder-story">
+        Soy Daniela Morán Brito. No vengo de una historia fácil. He vivido caos, conflictos familiares, momentos donde todo se desordena y una siente que no sabe para dónde va.<br><br>
+        Sé lo que es estar cansada, confundida y sin respuestas claras. Pero también sé lo que es tocar fondo… y decidir no quedarse ahí.<br><br>
+        Nadie me enseñó el camino, lo fui entendiendo a golpes, con errores, con caídas y volviéndome a levantar una y otra vez. Y en ese proceso me di cuenta de algo que no puedo ignorar: hay demasiada gente viviendo lo mismo, pero en silencio y sin guía.<br><br>
+        Por eso hago lo que hago. No porque tenga la vida resuelta, sino porque sé lo que es no tener dirección y lo importante que es que alguien aparezca en ese momento.<br><br>
+        BRÚJULA nace desde ahí, desde lo real. Desde querer estar para otros, como muchas veces nadie estuvo. Creo en Dios, en los nuevos comienzos y en que nunca es tarde para ordenar la vida.<br><br>
+        <em style="color: var(--gold2);">Y si hoy alguien se siente perdido, lo entiendo… porque yo también estuve ahí. 🧭</em>
+      </p>
+    </div>
+
+  </div>
 </section>
 
-<section class="cta-bottom">
-  <h2 class="cta-bottom-title">¿Tienes algo en el<br><em>corazón hoy?</em></h2>
-  <a href="https://t.me/brujula_ai_bot" target="_blank" class="btn-primary">
-    <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.025 9.54c-.148.666-.537.833-1.084.518l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.888.671z"/>
-    </svg>
-    Abrir Brújula en Telegram
-  </a>
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <h2>¿Tienes algo en el corazón <em>hoy?</em></h2>
+  <p>No lo guardes más. Hay alguien esperándote.</p>
+  <div class="cta-buttons">
+    <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">🧭 Hablar ahora en Telegram</a>
+    <p style="font-size:0.8rem; color: var(--muted);">100% privado · Gratis · Sin juicios</p>
+  </div>
+  <div class="bible-quote" style="max-width: 500px; margin: 3rem auto 0;">
+    <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
+    <cite>Mateo 11:28</cite>
+  </div>
 </section>
 
+<!-- DONATE SECTION -->
+<section class="donate-section">
+  <div class="donate-inner">
+    <h3>💛 ¿Quieres cooperar?</h3>
+    <p>Brújula llega donde otros no llegan. Si sientes que esto tiene valor y quieres ser parte de lo que estamos construyendo, nos gustaría saber de ti.</p>
+    <button class="btn-donate" onclick="document.getElementById('donateModal').classList.add('active')">
+      💛 Donar / Cooperar
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-left">© 2026 veraxIA SpA</div>
-  <div class="footer-church">
-    <strong>Fe y Alabanza · Asambleas de Dios</strong>
-    2100 N Quebec St, Arlington, VA
-  </div>
+  <p>© 2026 <a href="#">veraxIA SpA</a> · Villa Alegre, Chile<br>
+  <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a> · 2100 N Quebec St, Arlington, VA<br>
 </footer>
-<p class="powered">Desarrollado con ❤️ por <a href="#">veraxIA</a> · Villa Alegre, Chile</p>
+
+<!-- DONATE MODAL -->
+<div class="modal-overlay" id="donateModal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('donateModal').classList.remove('active')">✕</button>
+
+    <div id="modalForm">
+      <div class="modal-icon">💛</div>
+      <h3>Gracias por querer cooperar</h3>
+      <p>Tu apoyo ayuda a que Brújula llegue a más personas que necesitan dirección y esperanza.<br>Déjanos tu correo y nos pondremos en contacto contigo.</p>
+      <input type="email" id="donorEmail" placeholder="tu@correo.com" />
+      <button class="btn-modal-send" onclick="handleDonate()">Enviar mi correo</button>
+    </div>
+
+    <div class="modal-thanks" id="modalThanks">
+      <div class="big-emoji">🙏</div>
+      <h3>¡Gracias de corazón!</h3>
+      <p>Recibimos tu correo. Nos pondremos en contacto contigo muy pronto.<br><br>Tu generosidad nos ayuda a seguir llevando luz a donde más se necesita. Dios te bendiga.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function handleDonate() {
+    const email = document.getElementById('donorEmail').value;
+    if (!email || !email.includes('@')) {
+      alert('Por favor ingresa un correo válido.');
+      return;
+    }
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalThanks').style.display = 'block';
+    // Here you would send the email to your backend/Google Sheets
+    console.log('Donor email:', email);
+  }
+
+  // Close modal on overlay click
+  document.getElementById('donateModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+</script>
 
 </body>
 </html>
