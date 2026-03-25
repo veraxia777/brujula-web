@@ -63,16 +63,13 @@
     background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
   }
 
-  .compass-icon {
-    font-size: 3.5rem;
+  .compass-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
     margin-bottom: 1.5rem;
-    animation: spin-slow 20s linear infinite;
-    display: inline-block;
-  }
-
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    box-shadow: 0 0 40px rgba(201,168,76,0.3);
   }
 
   .hero-tag {
@@ -702,7 +699,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="compass-icon">🧭</div>
+  <img src="brujula.png" alt="Brújula" class="compass-img">
   <p class="hero-tag">Fe y Alabanza · Arlington, VA</p>
   <h1>Cuando no sabes qué hacer <em>con tu vida…</em></h1>
   <p class="hero-sub">No tienes que seguir cargando esto solo.</p>
@@ -866,6 +863,7 @@
 <footer>
   <p>© 2026 <a href="#">veraxIA SpA</a> · Villa Alegre, Chile<br>
   <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a> · 2100 N Quebec St, Arlington, VA<br>
+  Pastor: Félix González</p>
 </footer>
 
 <!-- DONATE MODAL -->
