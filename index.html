@@ -1,486 +1,476 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brújula — Cuando no sabes qué hacer con tu vida</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Brújula — Encuentra tu dirección</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --night: #080c14;
-    --deep: #0c1120;
-    --card: #111827;
-    --gold: #8ab4d4;
-    --gold2: #c8dff0;
-    --warm: #e8f0f8;
-    --muted: #7a90a8;
-    --text: #ddeaf5;
-    --accent: #4a90c4;
+    --bg: #f4f7fb;
+    --deep: #e8eef6;
+    --card: #ffffff;
+    --blue: #2a5f8f;
+    --blue2: #4a90c4;
+    --blue3: #8ab4d4;
+    --silver: #b8ccd8;
+    --dark: #1a2d40;
+    --muted: #6b7f90;
+    --text: #2c3e50;
+    --red-needle: #c0392b;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--night);
+    background: var(--bg);
     color: var(--text);
     overflow-x: hidden;
   }
 
-  /* STARS BACKGROUND */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image:
-      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 40% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 60% 22%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 5% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 50% 90%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 33% 65%, rgba(255,255,255,0.35) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
+  /* LANG SWITCHER */
+  .lang-bar {
+    background: var(--dark);
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active, .lang-btn:hover {
+    background: var(--blue2);
+    border-color: var(--blue2);
+    color: white;
   }
 
   /* HERO */
   .hero {
+    background: linear-gradient(160deg, #1a2d40 0%, #2a4a6b 40%, #3a6a9a 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem 1.5rem;
+    padding: 3rem 1.5rem 2rem;
     position: relative;
-    background: radial-gradient(ellipse at 50% 0%, rgba(74,144,196,0.15) 0%, transparent 70%);
+    overflow: hidden;
   }
 
-  .compass-img {
-    width: 260px;
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 85% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 8% 85%, rgba(255,255,255,0.25) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  /* 3D FLOATING LOGO */
+  .logo-wrap {
+    position: relative;
+    margin-bottom: 2rem;
+    perspective: 800px;
+  }
+
+  .logo-img {
+    width: 220px;
     height: auto;
     object-fit: contain;
-    border-radius: 0;
-    margin-bottom: 1.5rem;
-    filter: drop-shadow(0 0 30px rgba(138,180,212,0.4)) drop-shadow(0 0 60px rgba(72,130,180,0.2));
-    animation: float 4s ease-in-out infinite;
+    border-radius: 16px;
+    animation: float3d 5s ease-in-out infinite;
+    filter:
+      drop-shadow(0 20px 40px rgba(0,0,0,0.5))
+      drop-shadow(0 0 30px rgba(74,144,196,0.4));
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-18px); }
+  @keyframes float3d {
+    0%   { transform: translateY(0px) rotateX(2deg) rotateY(-3deg); }
+    25%  { transform: translateY(-12px) rotateX(-1deg) rotateY(3deg); }
+    50%  { transform: translateY(-20px) rotateX(3deg) rotateY(1deg); }
+    75%  { transform: translateY(-10px) rotateX(-2deg) rotateY(-2deg); }
+    100% { transform: translateY(0px) rotateX(2deg) rotateY(-3deg); }
   }
 
-  .hero-tag {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    opacity: 0.9;
+  .logo-glow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 20px;
+    background: radial-gradient(ellipse, rgba(74,144,196,0.4) 0%, transparent 70%);
+    animation: shadow-pulse 5s ease-in-out infinite;
+    border-radius: 50%;
+  }
+
+  @keyframes shadow-pulse {
+    0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.6; }
+    50% { transform: translateX(-50%) scaleX(0.7); opacity: 0.3; }
   }
 
   .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-size: clamp(1.9rem, 5.5vw, 3.5rem);
     font-weight: 900;
-    line-height: 1.1;
-    color: var(--warm);
-    max-width: 700px;
-    margin-bottom: 1.2rem;
+    color: #ffffff;
+    line-height: 1.15;
+    max-width: 600px;
+    margin-bottom: 0.8rem;
   }
 
   .hero h1 em {
     font-style: italic;
-    color: var(--gold2);
+    color: var(--blue3);
   }
 
   .hero-sub {
-    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-    color: var(--muted);
-    max-width: 480px;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    color: rgba(255,255,255,0.75);
+    max-width: 420px;
     line-height: 1.6;
-    margin-bottom: 2.5rem;
+    margin-bottom: 0.5rem;
     font-weight: 300;
+  }
+
+  .hero-sub2 {
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    color: var(--blue3);
+    margin-bottom: 2rem;
+    font-weight: 500;
   }
 
   .cta-main {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
-    color: #080c14;
-    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, var(--blue2), var(--blue3));
+    color: white;
     font-weight: 700;
-    font-size: 1.1rem;
-    padding: 1rem 2.2rem;
+    font-size: 1.05rem;
+    padding: 0.95rem 2rem;
     border-radius: 50px;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 8px 30px rgba(74,144,196,0.4);
+    box-shadow: 0 8px 30px rgba(42,95,143,0.5);
+    transition: all 0.2s;
     letter-spacing: 0.01em;
   }
 
   .cta-main:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(74,144,196,0.55);
+    box-shadow: 0 14px 40px rgba(42,95,143,0.65);
   }
 
   .trust-line {
     margin-top: 1rem;
-    font-size: 0.82rem;
-    color: var(--muted);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
     letter-spacing: 0.05em;
   }
 
-  .trust-line span { margin: 0 0.4rem; opacity: 0.5; }
+  .trust-line span { margin: 0 0.4rem; opacity: 0.4; }
 
   .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 2rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 1.2rem;
     animation: bounce 2s infinite;
-    color: var(--muted);
-    font-size: 1.4rem;
   }
 
   @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
   }
 
   /* PAIN SECTION */
   .pain-section {
-    background: var(--deep);
-    padding: 5rem 1.5rem;
-    position: relative;
+    background: white;
+    padding: 3.5rem 1.5rem;
   }
 
   .section-inner {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
+    text-align: center;
   }
 
   .pain-lead {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     font-style: italic;
-    color: var(--warm);
-    margin-bottom: 2.5rem;
-    line-height: 1.4;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
   }
 
   .pain-list {
     list-style: none;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    display: inline-block;
   }
 
   .pain-list li {
     display: flex;
     align-items: flex-start;
     gap: 0.8rem;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 1.05rem;
-    color: #c5c3d6;
+    padding: 0.55rem 0;
+    font-size: 1rem;
+    color: var(--muted);
     line-height: 1.5;
   }
 
   .pain-list li .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
+    width: 6px; height: 6px;
+    background: var(--blue2);
     border-radius: 50%;
     margin-top: 0.55rem;
     flex-shrink: 0;
   }
 
   .pain-heavy {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--muted);
     font-style: italic;
-    margin-bottom: 2.5rem;
-    padding-left: 1.5rem;
-    border-left: 2px solid rgba(201,168,76,0.3);
+    margin-bottom: 2rem;
   }
 
-  .hook-text {
-    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(224,123,84,0.08));
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2.5rem;
+  .hook-box {
+    background: linear-gradient(135deg, #eef4fa, #ddeaf5);
+    border-left: 3px solid var(--blue2);
+    border-radius: 0 12px 12px 0;
+    padding: 1.4rem 1.5rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
   }
 
-  .hook-text h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.3rem, 3vw, 1.7rem);
-    color: var(--gold2);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-  }
-
-  .hook-text p {
-    font-size: 1rem;
+  .hook-box p {
+    font-size: 0.97rem;
+    color: var(--text);
     line-height: 1.75;
-    color: #c5c3d6;
   }
 
-  /* FEATURES SECTION */
+  .no-religion {
+    background: var(--deep);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    font-size: 0.97rem;
+    color: var(--blue);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  /* FEATURES */
   .features-section {
-    padding: 5rem 1.5rem;
-    background: var(--night);
+    background: var(--bg);
+    padding: 3rem 1.5rem;
   }
 
-  .features-section h2 {
+  .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    color: var(--dark);
     text-align: center;
-    color: var(--warm);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.4rem;
   }
 
-  .features-section h2 em { color: var(--gold2); font-style: italic; }
+  .section-title em { color: var(--blue2); font-style: italic; }
 
-  .features-sub {
+  .section-sub {
     text-align: center;
     color: var(--muted);
-    margin-bottom: 3rem;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    margin-bottom: 2rem;
   }
 
   .features-grid {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    .features-grid { grid-template-columns: 1fr; }
   }
 
   .feature-card {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px;
-    padding: 1.6rem;
-    transition: transform 0.2s, border-color 0.2s;
+    background: white;
+    border: 1px solid rgba(42,95,143,0.08);
+    border-radius: 14px;
+    padding: 1.2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
   .feature-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(42,95,143,0.1);
   }
 
-  .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
-  .feature-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--warm); }
-  .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .feature-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .feature-card h3 { font-size: 0.85rem; font-weight: 600; color: var(--dark); margin-bottom: 0.3rem; }
+  .feature-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
-  /* JESUS SECTION */
-  .jesus-section {
-    background: var(--deep);
-    padding: 5rem 1.5rem;
+  /* COUNSELING CTA */
+  .counseling-box {
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    background: linear-gradient(135deg, var(--blue), #1a3d5c);
+    border-radius: 16px;
+    padding: 1.4rem 1.5rem;
     text-align: center;
+    color: white;
   }
 
-  .jesus-section .section-inner { text-align: left; }
+  .counseling-box p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
 
-  .jesus-section h2 {
+  .btn-counseling {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: white;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-counseling:hover { opacity: 0.9; transform: translateY(-2px); }
+
+  /* FOUNDERS */
+  .founders-section {
+    background: white;
+    padding: 3rem 1.5rem;
+  }
+
+  .founders-grid {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 500px) {
+    .founders-grid { grid-template-columns: 1fr; }
+  }
+
+  .founder-card {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 1.4rem;
+    border-top: 3px solid var(--blue2);
+  }
+
+  .founder-flag { font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .founder-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.15rem; }
+  .founder-role { font-size: 0.72rem; color: var(--blue2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+  .founder-story { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+  .founder-story em { color: var(--blue); font-style: italic; }
+
+  /* BIBLE & FINAL CTA */
+  .cta-section {
+    background: linear-gradient(160deg, #1a2d40, #2a4a6b);
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-section h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    color: var(--warm);
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    margin-bottom: 0.7rem;
     line-height: 1.3;
-    margin-bottom: 1.2rem;
   }
 
-  .jesus-section h2 em { color: var(--gold2); font-style: italic; }
+  .cta-section h2 em { color: var(--blue3); font-style: italic; }
+
+  .cta-section p {
+    color: rgba(255,255,255,0.65);
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
 
   .bible-quote {
-    background: rgba(201,168,76,0.06);
-    border-left: 3px solid var(--accent);
-    padding: 1.2rem 1.5rem;
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--blue3);
     border-radius: 0 12px 12px 0;
-    margin: 2rem 0;
+    padding: 1.1rem 1.4rem;
+    max-width: 480px;
+    margin: 2rem auto 0;
+    text-align: left;
   }
 
   .bible-quote p {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-style: italic;
-    color: var(--warm);
+    color: rgba(255,255,255,0.9);
     line-height: 1.6;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 
   .bible-quote cite {
-    font-size: 0.8rem;
-    color: var(--gold);
+    font-size: 0.75rem;
+    color: var(--blue3);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-style: normal;
   }
 
-  .jesus-section p.body {
-    font-size: 1rem;
-    color: #c5c3d6;
-    line-height: 1.8;
-    margin-bottom: 1rem;
-  }
-
-  /* PROVENANCE — FOUNDERS */
-  .founders-section {
-    padding: 5rem 1.5rem;
-    background: var(--night);
-  }
-
-  .founders-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    color: var(--warm);
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .founders-section .sub {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin-bottom: 3rem;
-  }
-
-  .founders-grid {
-    max-width: 820px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-
-  .founder-card {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 20px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .founder-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #4a90c4, #8ab4d4);
-  }
-
-  .founder-flag {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .founder-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--warm);
-    margin-bottom: 0.2rem;
-  }
-
-  .founder-role {
-    font-size: 0.78rem;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.2rem;
-  }
-
-  .founder-story {
-    font-size: 0.9rem;
-    color: #b0aec0;
-    line-height: 1.75;
-  }
-
-  /* CTA FINAL */
-  .cta-section {
-    padding: 6rem 1.5rem;
-    background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.1) 0%, transparent 70%),
-                var(--deep);
-    text-align: center;
-  }
-
-  .cta-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    color: var(--warm);
-    margin-bottom: 0.8rem;
-    line-height: 1.3;
-  }
-
-  .cta-section h2 em { color: var(--gold2); font-style: italic; }
-
-  .cta-section p {
-    color: var(--muted);
-    max-width: 420px;
-    margin: 0 auto 2rem;
-    line-height: 1.7;
-  }
-
-  .cta-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    color: var(--muted);
-    font-size: 0.9rem;
-    padding: 0.7rem 1.5rem;
-    border-radius: 50px;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.2s;
-  }
-
-  .cta-secondary:hover {
-    border-color: rgba(201,168,76,0.3);
-    color: var(--warm);
-  }
-
-  /* DONATE SECTION */
+  /* DONATE */
   .donate-section {
-    padding: 4rem 1.5rem;
-    background: var(--night);
+    background: var(--bg);
+    padding: 2.5rem 1.5rem;
     text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .donate-inner {
-    max-width: 500px;
-    margin: 0 auto;
+    border-top: 1px solid rgba(42,95,143,0.1);
   }
 
   .donate-section h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--warm);
-    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
   }
 
   .donate-section p {
     color: var(--muted);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    margin-bottom: 1.2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
     line-height: 1.6;
   }
 
@@ -488,31 +478,72 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #4a90c4, #2a6090);
+    background: linear-gradient(135deg, var(--blue), var(--blue2));
     color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.9rem 2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.8rem 1.8rem;
     border-radius: 50px;
-    text-decoration: none;
     border: none;
     cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 6px 20px rgba(42,95,143,0.25);
     transition: all 0.2s;
-    box-shadow: 0 6px 20px rgba(74,144,196,0.35);
   }
 
-  .btn-donate:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(74,144,196,0.5);
+  .btn-donate:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(42,95,143,0.35); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 1.5rem;
+    text-align: center;
   }
 
-  /* DONATE MODAL */
+  footer p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+
+  footer a { color: var(--blue3); text-decoration: none; }
+  footer em { color: rgba(255,255,255,0.3); font-style: italic; }
+
+  /* FLOAT CTA */
+  .float-cta {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    z-index: 900;
+    background: linear-gradient(135deg, var(--blue), var(--blue2));
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.75rem 1.3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 6px 20px rgba(42,95,143,0.4);
+    animation: pulse-glow 3s ease-in-out infinite;
+    transition: all 0.2s;
+  }
+
+  .float-cta:hover { transform: scale(1.05); }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 6px 20px rgba(42,95,143,0.4); }
+    50% { box-shadow: 0 6px 32px rgba(42,95,143,0.65); }
+  }
+
+  /* MODAL */
   .modal-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.6);
     backdrop-filter: blur(4px);
     z-index: 1000;
     align-items: center;
@@ -523,303 +554,244 @@
   .modal-overlay.active { display: flex; }
 
   .modal {
-    background: var(--card);
-    border: 1px solid rgba(201,168,76,0.2);
+    background: white;
     border-radius: 20px;
-    padding: 2.5rem 2rem;
-    max-width: 480px;
+    padding: 2rem 1.5rem;
+    max-width: 420px;
     width: 100%;
     text-align: center;
     position: relative;
     animation: modal-in 0.3s ease;
+    border-top: 4px solid var(--blue2);
   }
 
   @keyframes modal-in {
-    from { opacity: 0; transform: translateY(20px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .modal-close {
     position: absolute;
-    top: 1rem; right: 1.2rem;
+    top: 0.8rem; right: 1rem;
     background: none; border: none;
-    color: var(--muted); font-size: 1.4rem;
+    color: var(--muted); font-size: 1.3rem;
     cursor: pointer;
-    transition: color 0.2s;
   }
 
-  .modal-close:hover { color: var(--warm); }
-
-  .modal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .modal-icon { font-size: 2rem; margin-bottom: 0.8rem; }
 
   .modal h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--warm);
-    margin-bottom: 0.6rem;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
   }
 
-  .modal p {
-    color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
+  .modal p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; margin-bottom: 1.2rem; }
 
   .modal input[type="email"] {
     width: 100%;
-    padding: 0.9rem 1.2rem;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.8rem 1rem;
+    background: var(--bg);
+    border: 1px solid rgba(42,95,143,0.2);
     border-radius: 10px;
-    color: var(--warm);
-    font-size: 0.95rem;
+    color: var(--dark);
+    font-size: 0.92rem;
     font-family: 'DM Sans', sans-serif;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     outline: none;
     transition: border-color 0.2s;
   }
 
-  .modal input[type="email"]:focus {
-    border-color: rgba(201,168,76,0.5);
-  }
-
+  .modal input:focus { border-color: var(--blue2); }
   .modal input::placeholder { color: var(--muted); }
 
   .btn-modal-send {
     width: 100%;
-    padding: 0.9rem;
-    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
-    color: #0d0d14;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, var(--blue), var(--blue2));
+    color: white;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
     font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s;
   }
 
-  .btn-modal-send:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-modal-send:hover { opacity: 0.9; }
 
-  .modal-thanks {
-    display: none;
-    animation: modal-in 0.3s ease;
-  }
+  .modal-thanks { display: none; animation: modal-in 0.3s ease; }
+  .modal-thanks .big-emoji { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .modal-thanks h3 { color: var(--blue); }
 
-  .modal-thanks .big-emoji { font-size: 3rem; margin-bottom: 1rem; }
-
-  .modal-thanks h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--gold2);
-    margin-bottom: 0.6rem;
-  }
-
-  .modal-thanks p {
-    color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.7;
-  }
-
-  /* FLOATING CTA */
-  .float-cta {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 900;
-    background: linear-gradient(135deg, #4a90c4, #8ab4d4);
-    color: #080c14;
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 0.8rem 1.4rem;
-    border-radius: 50px;
-    text-decoration: none;
-    box-shadow: 0 6px 24px rgba(74,144,196,0.45);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s;
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  .float-cta:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 32px rgba(201,168,76,0.55);
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 6px 24px rgba(74,144,196,0.4); }
-    50% { box-shadow: 0 6px 36px rgba(74,144,196,0.7); }
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--deep);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  footer p {
-    color: var(--muted);
-    font-size: 0.8rem;
-    line-height: 1.7;
-  }
-
-  footer a { color: var(--gold); text-decoration: none; }
-
-  /* DIVIDER */
-  .divider {
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-    margin: 1.5rem 0;
-  }
-
-  .divider.center { margin-left: auto; margin-right: auto; }
-
-  /* URGENT FEELING */
-  .urgent {
-    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(224,123,84,0.06));
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 12px;
-    padding: 1.2rem 1.5rem;
-    margin: 2rem 0;
-    font-size: 0.95rem;
-    color: #c5c3d6;
-    line-height: 1.7;
-    text-align: center;
-  }
-
-  .urgent strong { color: var(--gold2); }
-
+  /* LANG HIDDEN */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="es"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+  body.lang-en span[data-lang="en"] { display: inline; }
+  body.lang-en span[data-lang="es"] { display: none; }
+  span[data-lang="en"] { display: none; }
 </style>
 </head>
 <body>
 
-<!-- FLOATING CTA -->
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('es')">🇪🇸 ES</button>
+  <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
+</div>
+
+<!-- FLOAT CTA -->
 <a class="float-cta" href="https://t.me/brujula_ai_bot" target="_blank">
-  🧭 Hablar ahora
+  🧭 <span data-lang="es">Hablar ahora</span><span data-lang="en">Talk now</span>
 </a>
 
 <!-- HERO -->
 <section class="hero">
-  <img src="brujula.png" alt="Brújula" class="compass-img">
-  <p class="hero-tag">Fe y Alabanza · Arlington, VA</p>
-  <h1>Cuando no sabes qué hacer <em>con tu vida…</em></h1>
-  <p class="hero-sub">No tienes que seguir cargando esto solo.</p>
+  <div class="logo-wrap">
+    <img src="brujula.png" alt="Future & Hope" class="logo-img">
+    <div class="logo-glow"></div>
+  </div>
+
+  <h1 data-lang="es">Cuando no sabes qué hacer <em>con tu vida…</em></h1>
+  <h1 data-lang="en">When you don't know what to do <em>with your life…</em></h1>
+
+  <p class="hero-sub" data-lang="es">No tienes que seguir cargando con esto solo…</p>
+  <p class="hero-sub" data-lang="en">You don't have to carry this alone…</p>
+
+  <p class="hero-sub2" data-lang="es">Recibe dirección real para tu vida.</p>
+  <p class="hero-sub2" data-lang="en">Get real direction for your life.</p>
+
   <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">
-    ✉️ Hablar en Telegram
+    ✉️ <span data-lang="es">Hablar en Telegram</span><span data-lang="en">Talk on Telegram</span>
   </a>
-  <p class="trust-line">Gratis<span>·</span>Privado<span>·</span>Sin juicios<span>·</span>Tu propio idioma</p>
+  <p class="trust-line">
+    <span data-lang="es">100% privado<span>·</span>Habla sin ser juzgado</span>
+    <span data-lang="en">100% private<span>·</span>Speak without judgment</span>
+  </p>
   <div class="scroll-hint">↓</div>
 </section>
 
-<!-- PAIN SECTION -->
+<!-- PAIN -->
 <section class="pain-section">
   <div class="section-inner">
-    <p class="pain-lead">Tal vez hoy te sientes así…</p>
-    <ul class="pain-list">
+    <p class="pain-lead" data-lang="es">Tal vez hoy te sientes así…</p>
+    <p class="pain-lead" data-lang="en">Maybe today you feel like this…</p>
+
+    <ul class="pain-list" data-lang="es">
       <li><span class="dot"></span>Tienes todo… pero no tienes paz</li>
       <li><span class="dot"></span>Tomas decisiones… pero no estás seguro</li>
       <li><span class="dot"></span>Estás cansado… pero sigues adelante</li>
       <li><span class="dot"></span>Nadie sabe lo que estás cargando</li>
     </ul>
-    <p class="pain-heavy">Y lo más difícil… es que no sabes con quién hablar.</p>
+    <ul class="pain-list" data-lang="en">
+      <li><span class="dot"></span>You have it all… but no peace</li>
+      <li><span class="dot"></span>You make decisions… but feel uncertain</li>
+      <li><span class="dot"></span>You're exhausted… but keep going</li>
+      <li><span class="dot"></span>No one knows what you're carrying</li>
+    </ul>
 
-    <div class="hook-text">
-      <h2>No es que estés fallando…<br>Es que estás tratando de avanzar sin dirección.</h2>
-      <p>Puedes hacer muchas cosas bien… y aun así sentirte perdido. Para eso existe <strong>Brújula</strong>. Un espacio donde puedes hablar, ser escuchado y recibir dirección real para tu vida.</p>
+    <p class="pain-heavy" data-lang="es">Y lo más difícil… es que no sabes con quién hablar.</p>
+    <p class="pain-heavy" data-lang="en">And the hardest part… is not knowing who to talk to.</p>
+
+    <div class="hook-box">
+      <p data-lang="es">No es que estés fallando. Es que estás tratando de avanzar sin dirección. Puedes hacer muchas cosas bien… y aun así sentirte perdido. Para eso existe <strong>Brújula</strong> — un espacio donde puedes hablar, ser escuchado y recibir dirección real.</p>
+      <p data-lang="en">You're not failing. You're just moving without direction. You can do many things right… and still feel lost. That's what <strong>Brújula</strong> is for — a space to talk, be heard, and find real direction.</p>
     </div>
 
-    <p style="font-size:0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem;">No es religión. No es imposición.</p>
-    <p style="font-size:1.05rem; color: #c5c3d6; line-height: 1.8; margin-bottom: 2rem;">👉 Es acompañamiento y consejos — <em>al final, tú decides.</em></p>
+    <div class="no-religion">
+      <span data-lang="es">No es religión. No es imposición. Es acompañamiento y consejos — al final, tú decides.</span>
+      <span data-lang="en">It's not religion. It's not pressure. It's guidance and companionship — in the end, you decide.</span>
+    </div>
 
-    <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">Hablar con Brújula</a>
-  </div>
-</section>
-
-<!-- JESUS SECTION -->
-<section class="jesus-section">
-  <div class="section-inner">
-    <h2>Jesús no vino a complicarte la vida…<br><em>vino a guiarte.</em></h2>
-    <div class="divider"></div>
-    <p class="body">Él dijo algo que no era una idea, era una promesa real:</p>
-    <div class="bible-quote">
-      <p>"Yo soy el camino"</p>
-      <cite>Juan 14:6</cite>
-    </div>
-    <p class="body">No es un concepto religioso. Es un camino real para tu vida, hoy.</p>
-    <div class="bible-quote">
-      <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
-      <cite>Mateo 11:28</cite>
-    </div>
-    <div class="urgent">
-      <strong>Tal vez no estás aquí por casualidad.</strong><br>
-      Tal vez esto es exactamente lo que necesitabas hoy.
-    </div>
-    <p class="body" style="margin-bottom: 2rem;">No tienes que seguir solo. No lo guardes más.</p>
     <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">
-      🧭 Hablar ahora
+      🧭 <span data-lang="es">Hablar con Brújula</span><span data-lang="en">Talk to Brújula</span>
     </a>
-    <p style="font-size:0.8rem; color: var(--muted); margin-top: 0.8rem;">100% privado · Gratis · Sin juicios</p>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="features-section">
-  <h2>¿Qué encontrarás en <em>Brújula?</em></h2>
-  <p class="features-sub">Como un consejero que se sienta contigo</p>
+  <h2 class="section-title" data-lang="es">¿Qué encontrarás en <em>Brújula?</em></h2>
+  <h2 class="section-title" data-lang="en">What you'll find in <em>Brújula?</em></h2>
+  <p class="section-sub" data-lang="es">Como un consejero que se sienta contigo</p>
+  <p class="section-sub" data-lang="en">Like a counselor sitting right beside you</p>
+
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">🕊️</div>
-      <h3>Alguien que te escucha</h3>
-      <p>Valida lo que sientes antes de hablar. No viene a juzgarte, viene a acompañarte.</p>
+      <h3 data-lang="es">Sin juicios</h3>
+      <h3 data-lang="en">No judgment</h3>
+      <p data-lang="es">No te juzgamos, te acompañamos y damos dirección para que tomes mejores decisiones a partir de hoy.</p>
+      <p data-lang="en">We don't judge you. We walk with you and give direction so you can make better decisions starting today.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📖</div>
-      <h3>Guía bíblica real</h3>
-      <p>Proverbios, Efesios, Mateo — la Palabra entra de forma natural, no como sermón.</p>
+      <h3 data-lang="es">Sabiduría probada</h3>
+      <h3 data-lang="en">Proven wisdom</h3>
+      <p data-lang="es">Inspirados en el libro más vendido de todos los tiempos.</p>
+      <p data-lang="en">Inspired by the best-selling book of all time.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🌙</div>
-      <h3>Siempre disponible</h3>
-      <p>A las 2am, un domingo, un feriado. Brújula siempre está cuando la necesitas.</p>
+      <h3 data-lang="es">Siempre disponible</h3>
+      <h3 data-lang="en">Always available</h3>
+      <p data-lang="es">A las 2am, un domingo, un feriado. Siempre estamos.</p>
+      <p data-lang="en">At 2am, on a Sunday, on a holiday. Always here.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🌎</div>
-      <h3>Cualquier idioma</h3>
-      <p>Detecta tu idioma automáticamente. Habla como quieras, Brújula te entiende.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🤝</div>
-      <h3>Comunidad real</h3>
-      <p>Cuando necesitas más, te conecta con Fe y Alabanza — personas reales que te esperan.</p>
+      <h3 data-lang="es">Cualquier idioma</h3>
+      <h3 data-lang="en">Any language</h3>
+      <p data-lang="es">Habla como quieras — Brújula te entiende.</p>
+      <p data-lang="en">Speak however you want — Brújula understands you.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🔒</div>
-      <h3>Espacio seguro</h3>
-      <p>Tu conversación es tuya. Sin juicios, sin condenas. Solo acompañamiento genuino.</p>
+      <h3 data-lang="es">100% privado</h3>
+      <h3 data-lang="en">100% private</h3>
+      <p data-lang="es">Tu conversación es tuya. Habla con libertad.</p>
+      <p data-lang="en">Your conversation is yours. Speak freely.</p>
     </div>
+    <div class="feature-card">
+      <div class="feature-icon">⏱️</div>
+      <h3 data-lang="es">Sin espera</h3>
+      <h3 data-lang="en">No waiting</h3>
+      <p data-lang="es">Respuesta inmediata cuando más lo necesitas.</p>
+      <p data-lang="en">Immediate response when you need it most.</p>
+    </div>
+  </div>
+
+  <div class="counseling-box">
+    <p data-lang="es">Si sientes que necesitas consejería personalizada, déjanos tus datos. Nos contactaremos contigo.</p>
+    <p data-lang="en">If you feel you need personalized counseling, leave us your info. We'll reach out to you.</p>
+    <a href="https://t.me/brujula_ai_bot" target="_blank" class="btn-counseling">
+      ✉️ <span data-lang="es">Solicitar consejería</span><span data-lang="en">Request counseling</span>
+    </a>
   </div>
 </section>
 
 <!-- FOUNDERS -->
 <section class="founders-section">
-  <h2>Quiénes somos</h2>
-  <p class="sub">Dos historias, una misión</p>
-  <div class="founders-grid">
+  <h2 class="section-title" data-lang="es">Quiénes somos</h2>
+  <h2 class="section-title" data-lang="en">Who we are</h2>
+  <p class="section-sub" data-lang="es">Dos historias, una misión</p>
+  <p class="section-sub" data-lang="en">Two stories, one mission</p>
 
+  <div class="founders-grid">
     <div class="founder-card">
       <div class="founder-flag">🇺🇸</div>
       <p class="founder-name">Melissa Reyes Maldonado</p>
       <p class="founder-role">Cofundadora · USA</p>
-      <p class="founder-story">
-        Viví durante 13 años lejos de Jesús, de los 15 a los 28. Fui testigo de realidades muy duras. Vi niños perder a sus padres en las drogas, amigos caer en la seducción del dinero fácil, otros terminar en la cárcel o desaparecer.<br><br>
-        Pero lo más impactante fue esto: nadie, ni una sola vez, nos habló de Jesús y su plan de salvación. Siempre se repetía lo mismo: desesperación, vacío, falta de esperanza.<br><br>
-        Hoy, viendo "la otra cara", entiendo que hay lugares donde casi nadie quiere ir… pero donde más se necesita luz. Correccionales, orfanatos, hogares marcados por violencia, adicciones. Lugares reales, con corazones heridos que claman en silencio.<br><br>
-        <em style="color: var(--gold2);">Por eso nació Brújula ✨</em>
+      <p class="founder-story" data-lang="es">
+        Viví 13 años lejos de Jesús. Vi niños perder a sus padres en las drogas, amigos caer en el dinero fácil, en la cárcel, desaparecer. Nadie, ni una vez, nos habló de Jesús.<br><br>
+        Hoy entiendo que hay lugares donde casi nadie quiere ir… pero donde más se necesita luz. Por eso nació Brújula. <em>Estás a un clic de recibir una palabra de esperanza.</em>
+      </p>
+      <p class="founder-story" data-lang="en">
+        I lived 13 years away from Jesus. I saw kids lose their parents to drugs, friends fall into easy money, prison, disappear. No one, not once, told us about Jesus.<br><br>
+        Today I understand there are places almost no one wants to go… but where light is needed most. That's why Brújula was born. <em>You're one click away from a word of hope.</em>
       </p>
     </div>
 
@@ -827,73 +799,90 @@
       <div class="founder-flag">🇨🇱</div>
       <p class="founder-name">Daniela Morán Brito</p>
       <p class="founder-role">Cofundadora · Chile</p>
-      <p class="founder-story">
-        Soy Daniela Morán Brito. No vengo de una historia fácil. He vivido caos, conflictos familiares, momentos donde todo se desordena y una siente que no sabe para dónde va.<br><br>
-        Sé lo que es estar cansada, confundida y sin respuestas claras. Pero también sé lo que es tocar fondo… y decidir no quedarse ahí.<br><br>
-        Nadie me enseñó el camino, lo fui entendiendo a golpes, con errores, con caídas y volviéndome a levantar una y otra vez. Y en ese proceso me di cuenta de algo que no puedo ignorar: hay demasiada gente viviendo lo mismo, pero en silencio y sin guía.<br><br>
-        Por eso hago lo que hago. No porque tenga la vida resuelta, sino porque sé lo que es no tener dirección y lo importante que es que alguien aparezca en ese momento.<br><br>
-        BRÚJULA nace desde ahí, desde lo real. Desde querer estar para otros, como muchas veces nadie estuvo. Creo en Dios, en los nuevos comienzos y en que nunca es tarde para ordenar la vida.<br><br>
-        <em style="color: var(--gold2);">Y si hoy alguien se siente perdido, lo entiendo… porque yo también estuve ahí. 🧭</em>
+      <p class="founder-story" data-lang="es">
+        No vengo de una historia fácil. He vivido caos, conflictos, momentos donde no sabía para dónde ir. Sé lo que es tocar fondo… y decidir no quedarse ahí.<br><br>
+        Brújula nace desde lo real. Desde querer estar para otros, como muchas veces nadie estuvo. <em>Si hoy alguien se siente perdido, lo entiendo… porque yo también estuve ahí. 🧭</em>
+      </p>
+      <p class="founder-story" data-lang="en">
+        I don't come from an easy story. I've lived through chaos, confusion, moments of not knowing which way to go. I know what it's like to hit rock bottom… and decide not to stay there.<br><br>
+        Brújula was born from real life. From wanting to be there for others. <em>If you feel lost today, I understand… because I've been there too. 🧭</em>
       </p>
     </div>
-
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="cta-section">
-  <h2>¿Tienes algo en el corazón <em>hoy?</em></h2>
-  <p>No lo guardes más. Hay alguien esperándote.</p>
-  <div class="cta-buttons">
-    <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">🧭 Hablar ahora en Telegram</a>
-    <p style="font-size:0.8rem; color: var(--muted);">100% privado · Gratis · Sin juicios</p>
-  </div>
-  <div class="bible-quote" style="max-width: 500px; margin: 3rem auto 0;">
-    <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."</p>
+  <h2 data-lang="es">¿Tienes algo en el corazón <em>hoy?</em></h2>
+  <h2 data-lang="en">Is there something on your heart <em>today?</em></h2>
+  <p data-lang="es">No lo guardes más. Hay alguien esperándote.</p>
+  <p data-lang="en">Don't hold it in. Someone is waiting for you.</p>
+
+  <a class="cta-main" href="https://t.me/brujula_ai_bot" target="_blank">
+    🧭 <span data-lang="es">Hablar ahora en Telegram</span><span data-lang="en">Talk now on Telegram</span>
+  </a>
+
+  <div class="bible-quote">
+    <p data-lang="es">"Vengan a mí todos los que están cansados y llevan cargas pesadas, y yo les daré descanso."</p>
+    <p data-lang="en">"Come to me, all you who are weary and burdened, and I will give you rest."</p>
     <cite>Mateo 11:28</cite>
   </div>
 </section>
 
-<!-- DONATE SECTION -->
+<!-- DONATE -->
 <section class="donate-section">
-  <div class="donate-inner">
-    <h3>💛 ¿Quieres cooperar?</h3>
-    <p>Brújula llega donde otros no llegan. Si sientes que esto tiene valor y quieres ser parte de lo que estamos construyendo, nos gustaría saber de ti.</p>
-    <button class="btn-donate" onclick="document.getElementById('donateModal').classList.add('active')">
-      💛 Donar / Cooperar
-    </button>
-  </div>
+  <h3 data-lang="es">💙 Donación / Suscripción</h3>
+  <h3 data-lang="en">💙 Donation / Subscription</h3>
+  <p data-lang="es">Brújula llega donde otros no llegan. Si quieres ser parte, déjanos tu correo y nos pondremos en contacto.</p>
+  <p data-lang="en">Brújula reaches where others don't. If you want to be part of this, leave your email and we'll reach out.</p>
+  <button class="btn-donate" onclick="document.getElementById('donateModal').classList.add('active')">
+    💙 <span data-lang="es">Cooperar</span><span data-lang="en">Support us</span>
+  </button>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 <a href="#">veraxIA SpA</a> · Villa Alegre, Chile<br>
-  <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a> · Arlington, VA<br>
-  <em style="color: var(--muted); font-size:0.78rem;">Porque nadie debería perderse sin que alguien lo note.</em></p>
+  <p>© 2026 <a href="#">veraxIA SpA</a><br>
+  <a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a><br>
+  <em>Porque nadie debería perderse sin que alguien lo note.</em></p>
 </footer>
 
-<!-- DONATE MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="donateModal">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('donateModal').classList.remove('active')">✕</button>
-
     <div id="modalForm">
-      <div class="modal-icon">💛</div>
-      <h3>Gracias por querer cooperar</h3>
-      <p>Tu apoyo ayuda a que Brújula llegue a más personas que necesitan dirección y esperanza.<br>Déjanos tu correo y nos pondremos en contacto contigo.</p>
+      <div class="modal-icon">💙</div>
+      <h3 data-lang="es">Gracias por querer cooperar</h3>
+      <h3 data-lang="en">Thank you for wanting to help</h3>
+      <p data-lang="es">Tu apoyo ayuda a que Brújula llegue a más personas. Déjanos tu correo y nos pondremos en contacto contigo.</p>
+      <p data-lang="en">Your support helps Brújula reach more people. Leave your email and we'll be in touch.</p>
       <input type="email" id="donorEmail" placeholder="tu@correo.com" />
-      <button class="btn-modal-send" onclick="handleDonate()">Enviar mi correo</button>
+      <button class="btn-modal-send" onclick="handleDonate()">
+        <span data-lang="es">Enviar</span><span data-lang="en">Send</span>
+      </button>
     </div>
-
     <div class="modal-thanks" id="modalThanks">
       <div class="big-emoji">🙏</div>
-      <h3>¡Gracias de corazón!</h3>
-      <p>Recibimos tu correo. Nos pondremos en contacto contigo muy pronto.<br><br>Tu generosidad nos ayuda a seguir llevando luz a donde más se necesita. Dios te bendiga.</p>
+      <h3 data-lang="es">¡Gracias de corazón!</h3>
+      <h3 data-lang="en">Thank you so much!</h3>
+      <p data-lang="es">Recibimos tu correo. Nos pondremos en contacto muy pronto. Dios te bendiga.</p>
+      <p data-lang="en">We received your email. We'll be in touch very soon. God bless you.</p>
     </div>
   </div>
 </div>
 
 <script>
+  function setLang(lang) {
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  }
+
+  document.getElementById('donateModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+
   function handleDonate() {
     const email = document.getElementById('donorEmail').value;
     if (!email || !email.includes('@')) {
@@ -902,15 +891,8 @@
     }
     document.getElementById('modalForm').style.display = 'none';
     document.getElementById('modalThanks').style.display = 'block';
-    // Here you would send the email to your backend/Google Sheets
     console.log('Donor email:', email);
   }
-
-  // Close modal on overlay click
-  document.getElementById('donateModal').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('active');
-  });
 </script>
-
 </body>
 </html>
