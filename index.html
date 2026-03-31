@@ -31,7 +31,7 @@ body{background:var(--ivory);color:var(--text);font-family:'Nunito',sans-serif;f
 .lang-btn.active{background:var(--sage);color:#fff;border-color:var(--sage);}
 .hero{position:relative;width:100%;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:80px 24px 80px;}
 .compass-bg{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.compass-bg img{width:55%;max-width:340px;height:auto;object-fit:contain;opacity:0.22;animation:float-compass 6s ease-in-out infinite;filter:saturate(0.6) brightness(1.1);}
+.compass-bg img{width:100%;max-width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.55;animation:float-compass 6s ease-in-out infinite;filter:saturate(0.75) brightness(1.0);}
 @keyframes float-compass{0%,100%{transform:translateY(0px) scale(1.02);}50%{transform:translateY(-18px) scale(1.04);}}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(250,247,242,0.72) 0%,rgba(232,240,233,0.55) 45%,rgba(250,247,242,0.80) 100%),linear-gradient(180deg,rgba(250,247,242,0.4) 0%,transparent 40%,transparent 60%,rgba(250,247,242,0.6) 100%);}
 .hero-rays{position:absolute;inset:0;z-index:1;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(168,197,170,0.04) 20deg,transparent 40deg,rgba(181,149,106,0.04) 80deg,transparent 100deg,rgba(168,197,170,0.04) 160deg,transparent 180deg,rgba(181,149,106,0.03) 240deg,transparent 280deg,rgba(168,197,170,0.04) 340deg,transparent 360deg);animation:rays-spin 60s linear infinite;}
@@ -60,13 +60,14 @@ h2 em{font-style:italic;color:var(--sage);}
 .feeling-item{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:14px 18px;font-size:15px;display:flex;align-items:center;gap:12px;transition:box-shadow .2s,transform .2s;}
 .feeling-item:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(122,158,126,0.12);}
 .feeling-icon{font-size:20px;flex-shrink:0;}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:28px;}
 @media(max-width:540px){.features-grid{grid-template-columns:repeat(2,1fr);}}
-.feature-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:20px 14px;text-align:center;transition:transform .2s,box-shadow .2s;}
+.feature-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 10px;text-align:center;transition:transform .2s,box-shadow .2s;position:relative;}
 .feature-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(122,158,126,0.15);}
-.feature-icon{font-size:26px;margin-bottom:8px;display:block;}
-.feature-card h3{font-family:'Playfair Display',serif;font-size:15px;margin-bottom:5px;color:var(--text);}
-.feature-card p{font-size:12.5px;color:var(--text-soft);line-height:1.5;}
+.feature-card::after{content:'';position:absolute;bottom:-4px;right:-4px;width:12px;height:12px;border-right:2px solid var(--border);border-bottom:2px solid var(--border);border-radius:0 0 4px 0;}
+.feature-icon{font-size:22px;margin-bottom:6px;display:block;}
+.feature-card h3{font-family:'Playfair Display',serif;font-size:13px;margin-bottom:4px;color:var(--text);}
+.feature-card p{font-size:11.5px;color:var(--text-soft);line-height:1.45;}
 .who{background:linear-gradient(160deg,var(--rose-pale) 0%,var(--ivory) 50%,var(--sage-pale) 100%);}
 .founders{display:grid;gap:24px;margin-top:32px;}
 .founder-card{background:var(--white);border:1px solid var(--border);border-radius:24px;padding:32px 28px;position:relative;overflow:hidden;}
@@ -179,7 +180,11 @@ body.lang-en span.en{display:inline;}
       <span class="es">No es que estés fallando. Es que estás avanzando sin dirección. <strong style="color:var(--text)">Your Path</strong> existe para acompañarte — sin juicios, sin presión, con amor real.</span>
       <span class="en">You're not failing. You're just moving without direction. <strong style="color:var(--text)">Your Path</strong> exists to walk with you — no judgment, no pressure, with real love.</span>
     </p>
-    <div style="margin-top:28px;">
+    <p style="margin-top:20px;font-size:22px;font-family:'Playfair Display',serif;font-weight:700;color:var(--text);">
+      <span class="es">No estás solo en esto.</span>
+      <span class="en">You are not alone in this.</span>
+    </p>
+    <div style="margin-top:20px;">
       <button class="btn btn-sage" onclick="openChat()">🌿 <span class="es">Quiero hablar</span><span class="en">I want to talk</span></button>
     </div>
   </div>
@@ -193,8 +198,8 @@ body.lang-en span.en{display:inline;}
     <div class="features-grid">
       <div class="feature-card"><span class="feature-icon">🕊️</span><h3><span class="es">Sin juicios</span><span class="en">No judgment</span></h3><p><span class="es">Te escuchamos y acompañamos, sin evaluar.</span><span class="en">We listen and walk with you, no evaluation.</span></p></div>
       <div class="feature-card"><span class="feature-icon">📖</span><h3><span class="es">Sabiduría viva</span><span class="en">Living wisdom</span></h3><p><span class="es">El libro más leído del mundo como guía.</span><span class="en">The most read book in the world as a guide.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">🌙</span><h3><span class="es">Siempre presente</span><span class="en">Always present</span></h3><p><span class="es">Las 2am, un domingo. Cuando más lo necesitas.</span><span class="en">At 2am, on a Sunday. When you need it most.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">🌎</span><h3><span class="es">+50 idiomas</span><span class="en">+50 languages</span></h3><p><span class="es">🇪🇸🇺🇸🇧🇷🇫🇷🇩🇪🇸🇦🇨🇳🇯🇵 y muchos más.</span><span class="en">🇪🇸🇺🇸🇧🇷🇫🇷🇩🇪🇸🇦🇨🇳🇯🇵 and many more.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">🌙</span><h3><span class="es">Siempre presente</span><span class="en">Always present</span></h3><p><span class="es">24/7 — cuando más lo necesitas.</span><span class="en">24/7 — when you need it most.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">🌍</span><h3><span class="es">+50 idiomas</span><span class="en">+50 languages</span></h3><p>🇪🇸 🇺🇸 🇧🇷 🇫🇷 🇩🇪 🇸🇦 🇨🇳 🇯🇵 🇷🇺 🇮🇳</p></div>
       <div class="feature-card"><span class="feature-icon">🔒</span><h3><span class="es">Tu privacidad</span><span class="en">Your privacy</span></h3><p><span class="es">Lo que aquí se habla, aquí queda.</span><span class="en">What's said here stays here.</span></p></div>
       <div class="feature-card"><span class="feature-icon">⚡</span><h3><span class="es">Respuesta inmediata</span><span class="en">Instant response</span></h3><p><span class="es">Sin listas de espera. Ahora mismo.</span><span class="en">No waiting lists. Right now.</span></p></div>
     </div>
@@ -258,17 +263,13 @@ body.lang-en span.en{display:inline;}
 <section class="cta-final">
   <div class="container">
     <h2><span class="es">¿Hay algo en tu corazón <em>hoy?</em></span><span class="en">Is there something on your heart <em>today?</em></span></h2>
-    <p style="color:var(--text-soft);max-width:500px;margin:0 auto 12px;font-size:17px;">
+    <p style="color:var(--text-soft);max-width:500px;margin:0 auto 28px;font-size:17px;">
       <span class="es">No lo guardes más. Hay alguien esperándote.</span>
       <span class="en">Don't hold it in. Someone is waiting for you.</span>
     </p>
-    <p style="color:var(--text);max-width:500px;margin:0 auto 28px;font-size:22px;font-family:'Playfair Display',serif;font-weight:700;">
-      <span class="es">No estás solo en esto.</span>
-      <span class="en">You are not alone in this.</span>
-    </p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
       <button class="btn btn-sage" onclick="openChat()">🕊️ <span class="es">Quiero hablar</span><span class="en">I want to talk</span></button>
-      <a class="btn btn-outline" href="mailto:brujula.ai@gmail.com">🤝 <span class="es">Hablar con una persona</span><span class="en">Talk to a person</span></a>
+      <a class="btn btn-outline" href="/cdn-cgi/l/email-protection#553727203f2039347b343c153238343c397b363a38">🤝 <span class="es">Hablar con una persona</span><span class="en">Talk to a person</span></a>
     </div>
   </div>
 </section>
@@ -279,7 +280,7 @@ body.lang-en span.en{display:inline;}
     <p class="section-label">🌿 <span class="es">Apoya la misión</span><span class="en">Support the mission</span></p>
     <h2><span class="es">Tu apoyo lleva luz <em>más lejos</em></span><span class="en">Your support carries light <em>further</em></span></h2>
     <p><span class="es">Your Path llega donde otros no llegan. Cada aporte nos ayuda a seguir disponibles para quien más lo necesita.</span><span class="en">Your Path reaches where others don't. Every contribution helps us stay available for those who need it most.</span></p>
-    <a class="btn btn-rose" href="mailto:brujula.ai@gmail.com?subject=Donación - Your Path&body=Hola, quiero apoyar el proyecto Your Path.">
+    <a class="btn btn-rose" href="/cdn-cgi/l/email-protection#f19383849b849d90df9098b1969c90989ddf929e9cce8284939b949285ccb59e9f90929832429fd1dcd1a89e8483d1a1908599d7939e9588ccb99e9d90ddd180849894839ed190819e889083d1949dd181839e889492859ed1a89e8483d1a1908599df">
       💛 <span class="es">Donar</span><span class="en">Donate</span>
     </a>
   </div>
@@ -329,7 +330,7 @@ body.lang-en span.en{display:inline;}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function setLang(l){
   document.body.className='lang-'+l;
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
@@ -377,12 +378,4 @@ async function sendChat(){
   }catch{
     t.remove();
     const en=document.body.className.includes('en');
-    addMsg(en?'Could not connect. Please try again.':'No pude conectarme. Inténtalo de nuevo.','bot');
-  }
-  document.getElementById('chatSend').disabled=false;
-  document.getElementById('chatInput').focus();
-}
-function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
-</script>
-</body>
-</html>
+    addMsg(en?'Could not connect. Please try again.'
