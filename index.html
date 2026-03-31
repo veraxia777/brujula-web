@@ -23,246 +23,54 @@
   --white:      #ffffff;
   --gold:       #b5956a;
 }
-
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--ivory);
-  color:var(--text);
-  font-family:'Nunito',sans-serif;
-  font-weight:400;
-  line-height:1.75;
-}
-
-/* ─── LANG BAR ─── */
-.lang-bar{
-  position:fixed;top:16px;right:18px;z-index:1000;
-  display:flex;gap:6px;
-}
-.lang-btn{
-  background:rgba(255,255,255,0.9);
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.6);
-  border-radius:24px;padding:5px 14px;
-  font-size:13px;cursor:pointer;color:var(--text-soft);
-  font-family:'Nunito',sans-serif;
-  transition:all .2s;
-}
+body{background:var(--ivory);color:var(--text);font-family:'Nunito',sans-serif;font-weight:400;line-height:1.75;}
+.lang-bar{position:fixed;top:16px;right:18px;z-index:1000;display:flex;gap:6px;}
+.lang-btn{background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.6);border-radius:24px;padding:5px 14px;font-size:13px;cursor:pointer;color:var(--text-soft);font-family:'Nunito',sans-serif;transition:all .2s;}
 .lang-btn.active{background:var(--sage);color:#fff;border-color:var(--sage);}
-
-/* ══════════════════════════════════════════
-   HERO — compass full-width spinning bg
-══════════════════════════════════════════ */
-.hero {
-  position:relative;
-  width:100%;
-  min-height:100svh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-  padding:80px 24px 80px;
-}
-
-/* Compass image — full width, spinning slowly */
-.compass-bg {
-  position:absolute;
-  inset:0;
-  z-index:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-.compass-bg img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  opacity:0.18;
-  animation:spin-needle 30s linear infinite;
-  transform-origin:center center;
-  filter:saturate(0.5) brightness(1.1);
-}
-@keyframes spin-needle {
-  from { transform: rotate(0deg) scale(1.08); }
-  to   { transform: rotate(360deg) scale(1.08); }
-}
-
-/* Layered gradient overlay — keeps text readable */
-.hero-overlay {
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:
-    radial-gradient(ellipse 80% 70% at 50% 50%,
-      rgba(250,247,242,0.72) 0%,
-      rgba(232,240,233,0.55) 45%,
-      rgba(250,247,242,0.80) 100%),
-    linear-gradient(180deg,
-      rgba(250,247,242,0.4) 0%,
-      transparent 40%,
-      transparent 60%,
-      rgba(250,247,242,0.6) 100%);
-}
-
-/* Subtle light rays */
-.hero-rays {
-  position:absolute;inset:0;z-index:1;
-  background:
-    conic-gradient(from 0deg at 50% 50%,
-      transparent 0deg,
-      rgba(168,197,170,0.04) 20deg,
-      transparent 40deg,
-      rgba(181,149,106,0.04) 80deg,
-      transparent 100deg,
-      rgba(168,197,170,0.04) 160deg,
-      transparent 180deg,
-      rgba(181,149,106,0.03) 240deg,
-      transparent 280deg,
-      rgba(168,197,170,0.04) 340deg,
-      transparent 360deg);
-  animation: rays-spin 60s linear infinite;
-}
-@keyframes rays-spin { from{transform:rotate(0deg);}to{transform:rotate(360deg);} }
-
-.hero-content {
-  position:relative;
-  z-index:2;
-  max-width:700px;
-}
-
-.hero-eyebrow {
-  display:inline-block;
-  font-size:11px;letter-spacing:4px;text-transform:uppercase;
-  color:var(--sage);font-weight:700;
-  background:rgba(255,255,255,0.75);
-  border:1px solid rgba(122,158,126,0.25);
-  border-radius:24px;padding:5px 18px;
-  margin-bottom:24px;
-  backdrop-filter:blur(6px);
-  box-shadow:0 2px 12px rgba(122,158,126,0.1);
-}
-
-.hero h1 {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(48px,12vw,96px);
-  font-weight:700;
-  line-height:1.0;
-  color:var(--text);
-  text-shadow:0 2px 20px rgba(250,247,242,0.8), 0 0 40px rgba(250,247,242,0.6);
-  margin-bottom:8px;
-  letter-spacing:-1px;
-}
-.hero h1 em {
-  display:block;
-  font-style:italic;
-  font-weight:400;
-  color:var(--sage);
-  font-size:0.7em;
-  letter-spacing:2px;
-}
-
-.hero-tagline {
-  font-size:clamp(16px,2.5vw,20px);
-  color:var(--text-soft);
-  margin:20px auto 36px;
-  max-width:480px;
-  font-weight:400;
-  text-shadow:0 1px 8px rgba(250,247,242,0.9);
-}
-
-.hero-cta {
-  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
-}
-
-/* Scroll hint */
-.scroll-hint {
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  z-index:2;color:var(--muted);
-  font-size:13px;letter-spacing:1px;
-  animation:bob 2.5s ease-in-out infinite;
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-}
+.hero{position:relative;width:100%;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:80px 24px 80px;}
+.compass-bg{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.compass-bg img{width:55%;max-width:340px;height:auto;object-fit:contain;opacity:0.22;animation:float-compass 6s ease-in-out infinite;filter:saturate(0.6) brightness(1.1);}
+@keyframes float-compass{0%,100%{transform:translateY(0px) scale(1.02);}50%{transform:translateY(-18px) scale(1.04);}}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(250,247,242,0.72) 0%,rgba(232,240,233,0.55) 45%,rgba(250,247,242,0.80) 100%),linear-gradient(180deg,rgba(250,247,242,0.4) 0%,transparent 40%,transparent 60%,rgba(250,247,242,0.6) 100%);}
+.hero-rays{position:absolute;inset:0;z-index:1;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(168,197,170,0.04) 20deg,transparent 40deg,rgba(181,149,106,0.04) 80deg,transparent 100deg,rgba(168,197,170,0.04) 160deg,transparent 180deg,rgba(181,149,106,0.03) 240deg,transparent 280deg,rgba(168,197,170,0.04) 340deg,transparent 360deg);animation:rays-spin 60s linear infinite;}
+@keyframes rays-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(48px,12vw,96px);font-weight:700;line-height:1.0;color:var(--text);text-shadow:0 2px 20px rgba(250,247,242,0.8),0 0 40px rgba(250,247,242,0.6);margin-bottom:8px;letter-spacing:-1px;}
+.hero h1 em{display:block;font-style:italic;font-weight:400;color:var(--sage);font-size:0.7em;letter-spacing:2px;}
+.hero-tagline{font-size:clamp(16px,2.5vw,20px);color:var(--text-soft);margin:20px auto 36px;max-width:480px;font-weight:400;text-shadow:0 1px 8px rgba(250,247,242,0.9);}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:13px;letter-spacing:1px;animation:bob 2.5s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;gap:2px;}
 @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
-
-/* ─── BUTTONS ─── */
-.btn {
-  display:inline-flex;align-items:center;gap:8px;
-  padding:14px 28px;border-radius:50px;
-  font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;
-  cursor:pointer;text-decoration:none;border:none;
-  transition:all .25s;letter-spacing:0.2px;
-}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;border:none;transition:all .25s;letter-spacing:0.2px;}
 .btn-sage{background:var(--sage);color:#fff;box-shadow:0 4px 16px rgba(122,158,126,0.3);}
 .btn-sage:hover{background:#5e8562;transform:translateY(-2px);box-shadow:0 8px 24px rgba(122,158,126,0.45);}
 .btn-outline{background:rgba(255,255,255,0.85);color:var(--sage);border:2px solid var(--sage);backdrop-filter:blur(4px);}
 .btn-outline:hover{background:var(--sage);color:#fff;transform:translateY(-2px);}
 .btn-rose{background:var(--rose);color:#fff;box-shadow:0 4px 16px rgba(201,144,138,0.3);}
 .btn-rose:hover{background:#b57c76;transform:translateY(-2px);}
-
-/* ─── SECTIONS ─── */
 section{padding:72px 24px;}
 .container{max-width:780px;margin:0 auto;}
-.section-label{
-  font-size:11px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--sage);font-weight:700;margin-bottom:10px;
-}
-h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(26px,5vw,40px);
-  font-weight:700;line-height:1.25;margin-bottom:16px;color:var(--text);
-}
+.section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sage);font-weight:700;margin-bottom:10px;}
+h2{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:700;line-height:1.25;margin-bottom:16px;color:var(--text);}
 h2 em{font-style:italic;color:var(--sage);}
-
-/* ─── FEELINGS ─── */
-.feelings{
-  background:linear-gradient(135deg,var(--sage-pale) 0%,var(--ivory-warm) 100%);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.feelings-grid{
-  display:grid;gap:12px;margin-top:28px;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-}
-.feeling-item{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:16px;padding:16px 20px;font-size:16px;
-  display:flex;align-items:center;gap:12px;
-  transition:box-shadow .2s,transform .2s;
-}
+.feelings{background:linear-gradient(135deg,var(--sage-pale) 0%,var(--ivory-warm) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.feelings-grid{display:grid;gap:10px;margin-top:28px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));}
+.feeling-item{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:14px 18px;font-size:15px;display:flex;align-items:center;gap:12px;transition:box-shadow .2s,transform .2s;}
 .feeling-item:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(122,158,126,0.12);}
 .feeling-icon{font-size:20px;flex-shrink:0;}
-
-/* ─── FEATURES ─── */
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:16px;margin-top:32px;
-}
-.feature-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:20px;padding:26px 22px;text-align:center;
-  transition:transform .2s,box-shadow .2s;
-}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;}
+@media(max-width:540px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+.feature-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:20px 14px;text-align:center;transition:transform .2s,box-shadow .2s;}
 .feature-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(122,158,126,0.15);}
-.feature-icon{font-size:32px;margin-bottom:12px;display:block;}
-.feature-card h3{font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px;color:var(--text);}
-.feature-card p{font-size:14px;color:var(--text-soft);}
-
-/* ─── WHO WE ARE ─── */
+.feature-icon{font-size:26px;margin-bottom:8px;display:block;}
+.feature-card h3{font-family:'Playfair Display',serif;font-size:15px;margin-bottom:5px;color:var(--text);}
+.feature-card p{font-size:12.5px;color:var(--text-soft);line-height:1.5;}
 .who{background:linear-gradient(160deg,var(--rose-pale) 0%,var(--ivory) 50%,var(--sage-pale) 100%);}
 .founders{display:grid;gap:24px;margin-top:32px;}
-.founder-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:24px;padding:32px 28px;
-  position:relative;overflow:hidden;
-}
-.founder-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--sage),var(--sky));
-}
+.founder-card{background:var(--white);border:1px solid var(--border);border-radius:24px;padding:32px 28px;position:relative;overflow:hidden;}
+.founder-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--sage),var(--sky));}
 .founder-card.dany::before{background:linear-gradient(90deg,var(--rose),var(--gold));}
 .founder-flag{font-size:30px;margin-bottom:12px;display:block;}
 .founder-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
@@ -272,63 +80,22 @@ h2 em{font-style:italic;color:var(--sage);}
 .founder-text p{margin-bottom:16px;}
 .founder-text p:last-child{margin-bottom:0;}
 .founder-highlight{font-family:'Playfair Display',serif;font-style:italic;color:var(--text);font-size:16px;}
-
-/* ─── VERSE ─── */
-.verse-section{
-  background:linear-gradient(135deg,var(--sage) 0%,#5e8a7a 100%);
-  color:#fff;text-align:center;padding:60px 24px;
-}
-.verse-section blockquote{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(19px,4vw,28px);font-style:italic;
-  max-width:620px;margin:0 auto 14px;line-height:1.6;
-}
+.verse-section{background:linear-gradient(135deg,var(--sage) 0%,#5e8a7a 100%);color:#fff;text-align:center;padding:60px 24px;}
+.verse-section blockquote{font-family:'Playfair Display',serif;font-size:clamp(19px,4vw,28px);font-style:italic;max-width:620px;margin:0 auto 14px;line-height:1.6;}
 .verse-section cite{font-size:13px;opacity:0.8;letter-spacing:2px;}
-
-/* ─── CTA FINAL ─── */
 .cta-final{background:var(--ivory-warm);text-align:center;}
-
-/* ─── DONATION ─── */
 .donation-section{text-align:center;background:var(--white);}
 .donation-section p{color:var(--text-soft);max-width:520px;margin:0 auto 24px;font-size:16px;}
-
-/* ─── FOOTER ─── */
 footer{background:var(--text);color:rgba(255,255,255,0.55);text-align:center;padding:32px 20px;font-size:13px;line-height:2;}
 footer a{color:var(--sage-light);text-decoration:none;}
 footer a:hover{color:#fff;}
 .footer-sep{opacity:0.3;margin:0 8px;}
-
-/* ─── FLOAT BUTTON ─── */
-.float-chat{
-  position:fixed;bottom:28px;right:22px;z-index:1500;
-  background:var(--sage);color:#fff;border:none;
-  border-radius:50px;padding:14px 22px;
-  font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;
-  cursor:pointer;box-shadow:0 6px 24px rgba(122,158,126,0.45);
-  display:flex;align-items:center;gap:8px;
-  transition:transform .2s,box-shadow .2s;
-}
+.float-chat{position:fixed;bottom:28px;right:22px;z-index:1500;background:var(--sage);color:#fff;border:none;border-radius:50px;padding:14px 22px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(122,158,126,0.45);display:flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;}
 .float-chat:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(122,158,126,0.55);}
-
-/* ─── CHAT MODAL ─── */
-.chat-overlay{
-  position:fixed;inset:0;background:rgba(45,58,46,0.5);
-  backdrop-filter:blur(4px);z-index:2000;
-  display:none;align-items:flex-end;justify-content:center;
-}
+.chat-overlay{position:fixed;inset:0;background:rgba(45,58,46,0.5);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:flex-end;justify-content:center;}
 .chat-overlay.open{display:flex;}
-.chat-modal{
-  background:var(--ivory);width:100%;max-width:520px;
-  height:78svh;max-height:620px;
-  border-radius:28px 28px 0 0;
-  display:flex;flex-direction:column;overflow:hidden;
-  box-shadow:0 -12px 48px rgba(0,0,0,0.15);
-}
-.chat-header{
-  background:linear-gradient(135deg,var(--sage) 0%,#5e8a7a 100%);
-  color:#fff;padding:16px 20px;
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
-}
+.chat-modal{background:var(--ivory);width:100%;max-width:520px;height:78svh;max-height:620px;border-radius:28px 28px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -12px 48px rgba(0,0,0,0.15);}
+.chat-header{background:linear-gradient(135deg,var(--sage) 0%,#5e8a7a 100%);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .chat-header-info{display:flex;align-items:center;gap:12px;}
 .chat-avatar{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;}
 .chat-header h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;}
@@ -337,13 +104,7 @@ footer a:hover{color:#fff;}
 .close-btn:hover{opacity:1;}
 .chat-messages{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 .chat-input-area{flex-shrink:0;background:var(--white);border-top:1px solid var(--border);padding:12px 16px 16px;display:flex;gap:10px;align-items:flex-end;}
-.chat-input-area textarea{
-  flex:1;background:var(--ivory);border:1px solid var(--border);
-  border-radius:16px;padding:10px 14px;
-  font-family:'Nunito',sans-serif;font-size:15px;
-  resize:none;outline:none;min-height:42px;max-height:100px;
-  color:var(--text);transition:border-color .2s;
-}
+.chat-input-area textarea{flex:1;background:var(--ivory);border:1px solid var(--border);border-radius:16px;padding:10px 14px;font-family:'Nunito',sans-serif;font-size:15px;resize:none;outline:none;min-height:42px;max-height:100px;color:var(--text);transition:border-color .2s;}
 .chat-input-area textarea:focus{border-color:var(--sage);}
 .chat-send{background:var(--sage);border:none;border-radius:14px;width:44px;height:44px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
 .chat-send:hover{background:#5e8562;}
@@ -359,20 +120,13 @@ footer a:hover{color:#fff;}
 .typing-dots span:nth-child(2){animation-delay:.2s;}
 .typing-dots span:nth-child(3){animation-delay:.4s;}
 @keyframes td{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-6px);opacity:1;}}
-
-/* ─── LANG HIDE ─── */
 .es,.en{display:none;}
 body.lang-es .es{display:block;}
 body.lang-en .en{display:block;}
 span.es,span.en{display:none;}
 body.lang-es span.es{display:inline;}
 body.lang-en span.en{display:inline;}
-
-@media(min-width:600px){
-  .founders{grid-template-columns:1fr 1fr;}
-  .chat-overlay{align-items:center;}
-  .chat-modal{border-radius:28px;height:75svh;}
-}
+@media(min-width:600px){.founders{grid-template-columns:1fr 1fr;}.chat-overlay{align-items:center;}.chat-modal{border-radius:28px;height:75svh;}}
 </style>
 </head>
 <body class="lang-es">
@@ -382,46 +136,25 @@ body.lang-en span.en{display:inline;}
   <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
 </div>
 
-<!-- ══════════════ HERO ══════════════ -->
+<!-- HERO -->
 <section class="hero">
-
-  <!-- Compass full-width spinning background -->
-  <div class="compass-bg">
-    <img src="brujula.png" alt=""/>
-  </div>
+  <div class="compass-bg"><img src="brujula.png" alt=""/></div>
   <div class="hero-overlay"></div>
   <div class="hero-rays"></div>
-
   <div class="hero-content">
-    <span class="hero-eyebrow">
-      <span class="es">✦ Acompañamiento espiritual · veraxIA</span>
-      <span class="en">✦ Spiritual companionship · veraxIA</span>
-    </span>
-
-    <h1>
-      Your Path
-      <em>Tu Camino</em>
-    </h1>
-
+    <h1>Your Path<em>Tu Camino</em></h1>
     <p class="hero-tagline">
       <span class="es">No tienes que caminar solo. Hay alguien que te espera, ahora mismo.</span>
       <span class="en">You don't have to walk alone. Someone is waiting for you, right now.</span>
     </p>
-
     <div class="hero-cta">
-      <button class="btn btn-sage" onclick="openChat()">
-        🕊️ <span class="es">Empezar a hablar</span><span class="en">Start talking</span>
-      </button>
-      <a class="btn btn-outline" href="https://t.me/brujula_ai_bot" target="_blank">
-        💬 Telegram
-      </a>
+      <button class="btn btn-sage" onclick="openChat()">🕊️ <span class="es">Quiero hablar</span><span class="en">I want to talk</span></button>
     </div>
   </div>
-
   <div class="scroll-hint">↓</div>
 </section>
 
-<!-- ══════════════ FEELINGS ══════════════ -->
+<!-- FEELINGS -->
 <section class="feelings">
   <div class="container">
     <p class="section-label"><span class="es">Quizás hoy te sientes así…</span><span class="en">Maybe today you feel like this…</span></p>
@@ -452,29 +185,28 @@ body.lang-en span.en{display:inline;}
   </div>
 </section>
 
-<!-- ══════════════ FEATURES ══════════════ -->
+<!-- FEATURES -->
 <section>
   <div class="container">
     <p class="section-label"><span class="es">¿Qué vas a encontrar?</span><span class="en">What will you find?</span></p>
     <h2><span class="es">Un espacio hecho <em>para ti</em></span><span class="en">A space made <em>for you</em></span></h2>
     <div class="features-grid">
       <div class="feature-card"><span class="feature-icon">🕊️</span><h3><span class="es">Sin juicios</span><span class="en">No judgment</span></h3><p><span class="es">Te escuchamos y acompañamos, sin evaluar.</span><span class="en">We listen and walk with you, no evaluation.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">📖</span><h3><span class="es">Sabiduría viva</span><span class="en">Living wisdom</span></h3><p><span class="es">Inspirados en la Biblia — el libro que guía millones.</span><span class="en">Inspired by the Bible — the book guiding millions.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">📖</span><h3><span class="es">Sabiduría viva</span><span class="en">Living wisdom</span></h3><p><span class="es">El libro más leído del mundo como guía.</span><span class="en">The most read book in the world as a guide.</span></p></div>
       <div class="feature-card"><span class="feature-icon">🌙</span><h3><span class="es">Siempre presente</span><span class="en">Always present</span></h3><p><span class="es">Las 2am, un domingo. Cuando más lo necesitas.</span><span class="en">At 2am, on a Sunday. When you need it most.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">🌎</span><h3><span class="es">Tu idioma</span><span class="en">Your language</span></h3><p><span class="es">Español, inglés — habla como quieras.</span><span class="en">Spanish, English — speak how you like.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">🔒</span><h3><span class="es">Tu privacidad</span><span class="en">Your privacy</span></h3><p><span class="es">Lo que aquí se habla, aquí queda. Total libertad.</span><span class="en">What's said here stays here. Total freedom.</span></p></div>
-      <div class="feature-card"><span class="feature-icon">⚡</span><h3><span class="es">Respuesta inmediata</span><span class="en">Instant response</span></h3><p><span class="es">Sin listas de espera. Sin turnos. Ahora mismo.</span><span class="en">No waiting lists. No turns. Right now.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">🌎</span><h3><span class="es">+50 idiomas</span><span class="en">+50 languages</span></h3><p><span class="es">🇪🇸🇺🇸🇧🇷🇫🇷🇩🇪🇸🇦🇨🇳🇯🇵 y muchos más.</span><span class="en">🇪🇸🇺🇸🇧🇷🇫🇷🇩🇪🇸🇦🇨🇳🇯🇵 and many more.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">🔒</span><h3><span class="es">Tu privacidad</span><span class="en">Your privacy</span></h3><p><span class="es">Lo que aquí se habla, aquí queda.</span><span class="en">What's said here stays here.</span></p></div>
+      <div class="feature-card"><span class="feature-icon">⚡</span><h3><span class="es">Respuesta inmediata</span><span class="en">Instant response</span></h3><p><span class="es">Sin listas de espera. Ahora mismo.</span><span class="en">No waiting lists. Right now.</span></p></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════ WHO WE ARE ══════════════ -->
+<!-- WHO WE ARE -->
 <section class="who">
   <div class="container">
     <p class="section-label"><span class="es">Quiénes somos</span><span class="en">Who we are</span></p>
     <h2><span class="es">Dos historias reales, <em>una misión</em></span><span class="en">Two real stories, <em>one mission</em></span></h2>
     <div class="founders">
-
       <div class="founder-card">
         <span class="founder-flag">🇺🇸</span>
         <div class="founder-name">Melissa Reyes Maldonado</div>
@@ -482,40 +214,38 @@ body.lang-en span.en{display:inline;}
         <div class="founder-text es">
           <p>Viví durante 13 años lejos del camino correcto y fui testigo de muchas realidades difíciles: niños violentados, padres atrapados en las drogas, amigos buscando dinero fácil que terminaron en la cárcel o simplemente desaparecieron.</p>
           <p>Pero lo más impactante fue esto: nadie, ni una sola vez, nos habló de Jesús ni de su plan de salvación. La desesperación, el vacío y la falta de esperanza guiaban nuestros días.</p>
-          <p>Hoy, al ver "la otra cara", sé por experiencia que existe mucha oscuridad… y que se necesitan personas que lleven luz. Hay lugares reales, con corazones heridos que claman en silencio.</p>
-          <p class="founder-highlight">Estás a un solo clic de recibir una palabra de consuelo, perdón y esperanza.<br>✨ Este proyecto nace por amor a ti.</p>
+          <p>Hoy sé que se necesitan personas que lleven luz a los lugares donde casi nadie quiere ir.</p>
+          <p class="founder-highlight">Estás a un solo clic de recibir una palabra de consuelo, perdón y esperanza. ✨</p>
         </div>
         <div class="founder-text en">
           <p>I lived 13 years away from the right path and witnessed many difficult realities: abused children, parents trapped in drugs, friends chasing easy money who ended up in prison or simply disappeared.</p>
-          <p>But the most impactful thing was this: no one, not once, ever told us about Jesus or His plan of salvation. Desperation, emptiness, and hopelessness guided our days.</p>
-          <p>Today, seeing "the other side," I know from experience that there is much darkness… and that people who carry light are needed. There are real places, with wounded hearts crying out in silence.</p>
-          <p class="founder-highlight">You are one click away from receiving a word of comfort, forgiveness, and hope.<br>✨ This project was born out of love for you.</p>
+          <p>But the most impactful thing: no one, not once, ever told us about Jesus or His plan of salvation.</p>
+          <p>Today I know that people who carry light are needed in the darkest places.</p>
+          <p class="founder-highlight">You are one click away from a word of comfort, forgiveness, and hope. ✨</p>
         </div>
       </div>
-
       <div class="founder-card dany">
         <span class="founder-flag">🇨🇱</span>
         <div class="founder-name">Daniela Morán Brito</div>
         <div class="founder-role"><span class="es">Cofundadora · Villa Alegre, Chile</span><span class="en">Co-founder · Villa Alegre, Chile</span></div>
         <div class="founder-text es">
-          <p>Crecí en Villa Alegre, en el sur de Chile — un pueblo pequeño donde las raíces son profundas y las tormentas también. No vengo de una historia fácil. Conozco el caos, las noches largas, los momentos donde la fe se pone a prueba y no sabes para dónde ir.</p>
-          <p>Pero aprendí algo que nadie me enseñó en ningún libro: la fe no necesita ser perfecta para ser real. Desde ese suelo firme — y con la convicción de que la tecnología puede ser un puente de amor — nació Your Path.</p>
-          <p>Creo que Dios habla a través de todos los tiempos. Y que nadie, sin importar dónde esté en el mundo, debería quedarse sin escuchar una palabra de esperanza.</p>
-          <p class="founder-highlight">Desde Villa Alegre, Chile, para el mundo entero — con fe, con amor, y con la certeza de que tu camino tiene propósito. 🧭</p>
+          <p>No vengo de una historia fácil. He vivido caos, conflictos, momentos donde no sabía para dónde ir. Sé lo que es tocar fondo… y decidir no quedarse ahí.</p>
+          <p>Nadie me enseñó el camino, lo fui entendiendo a golpes, con errores, con caídas y volviéndome a levantar. Y en ese proceso me di cuenta: hay demasiada gente viviendo lo mismo, en silencio y sin guía.</p>
+          <p>Your Path nace desde lo real. Desde querer estar para otros, como muchas veces nadie estuvo. Creo en Dios, en los nuevos comienzos y en que nunca es tarde para ordenar la vida.</p>
+          <p class="founder-highlight">Y si hoy alguien se siente perdido, lo entiendo… porque yo también estuve ahí. 🧭</p>
         </div>
         <div class="founder-text en">
-          <p>I grew up in Villa Alegre, in southern Chile — a small town where roots run deep, and so do storms. I didn't come from an easy story. I know chaos, long nights, seasons where faith is tested and you don't know which way to turn.</p>
-          <p>But I learned something no book ever taught me: faith doesn't need to be perfect to be real. From that solid ground — and with the conviction that technology can be a bridge of love — Your Path was born.</p>
-          <p>I believe God speaks through every era. And that no one, regardless of where they are in the world, should be left without hearing a word of hope.</p>
-          <p class="founder-highlight">From Villa Alegre, Chile, to the entire world — with faith, with love, and with the certainty that your path has purpose. 🧭</p>
+          <p>I didn't come from an easy story. I've lived through chaos, confusion, moments of not knowing which way to go. I know what it's like to hit rock bottom… and decide not to stay there.</p>
+          <p>No one taught me the way — I figured it out through mistakes, falls, and getting back up. Too many people are living the same, in silence and without guidance.</p>
+          <p>Your Path was born from real life. From wanting to be there for others. I believe in God, in new beginnings, and that it's never too late.</p>
+          <p class="founder-highlight">If you feel lost today, I understand… because I've been there too. 🧭</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════ VERSE ══════════════ -->
+<!-- VERSE -->
 <section class="verse-section">
   <blockquote>
     <span class="es">"Vengan a mí todos los que están cansados y llevan cargas pesadas, y yo les daré descanso."</span>
@@ -524,49 +254,52 @@ body.lang-en span.en{display:inline;}
   <cite>Mateo / Matthew 11:28</cite>
 </section>
 
-<!-- ══════════════ CTA FINAL ══════════════ -->
+<!-- CTA FINAL -->
 <section class="cta-final">
   <div class="container">
     <h2><span class="es">¿Hay algo en tu corazón <em>hoy?</em></span><span class="en">Is there something on your heart <em>today?</em></span></h2>
-    <p style="color:var(--text-soft);max-width:500px;margin:0 auto 28px;font-size:17px;">
-      <span class="es">No lo guardes más. Puedes hablar aquí mismo, ahora — o por Telegram si lo prefieres.</span>
-      <span class="en">Don't hold it in. Talk right here, right now — or on Telegram if you prefer.</span>
+    <p style="color:var(--text-soft);max-width:500px;margin:0 auto 12px;font-size:17px;">
+      <span class="es">No lo guardes más. Hay alguien esperándote.</span>
+      <span class="en">Don't hold it in. Someone is waiting for you.</span>
+    </p>
+    <p style="color:var(--text);max-width:500px;margin:0 auto 28px;font-size:22px;font-family:'Playfair Display',serif;font-weight:700;">
+      <span class="es">No estás solo en esto.</span>
+      <span class="en">You are not alone in this.</span>
     </p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-      <button class="btn btn-sage" onclick="openChat()">🕊️ <span class="es">Hablar en esta página</span><span class="en">Chat on this page</span></button>
-      <a class="btn btn-outline" href="https://t.me/brujula_ai_bot" target="_blank">💬 <span class="es">Abrir Telegram</span><span class="en">Open Telegram</span></a>
+      <button class="btn btn-sage" onclick="openChat()">🕊️ <span class="es">Quiero hablar</span><span class="en">I want to talk</span></button>
       <a class="btn btn-outline" href="mailto:brujula.ai@gmail.com">🤝 <span class="es">Hablar con una persona</span><span class="en">Talk to a person</span></a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════ DONATION ══════════════ -->
+<!-- DONATION -->
 <section class="donation-section">
   <div class="container">
     <p class="section-label">🌿 <span class="es">Apoya la misión</span><span class="en">Support the mission</span></p>
     <h2><span class="es">Tu apoyo lleva luz <em>más lejos</em></span><span class="en">Your support carries light <em>further</em></span></h2>
     <p><span class="es">Your Path llega donde otros no llegan. Cada aporte nos ayuda a seguir disponibles para quien más lo necesita.</span><span class="en">Your Path reaches where others don't. Every contribution helps us stay available for those who need it most.</span></p>
     <a class="btn btn-rose" href="mailto:brujula.ai@gmail.com?subject=Donación - Your Path&body=Hola, quiero apoyar el proyecto Your Path.">
-      💛 <span class="es">Quiero cooperar</span><span class="en">I want to help</span>
+      💛 <span class="es">Donar</span><span class="en">Donate</span>
     </a>
   </div>
 </section>
 
-<!-- ══════════════ FOOTER ══════════════ -->
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 <a href="#">veraxIA SpA</a><span class="footer-sep">·</span>MF&amp;H LLC<span class="footer-sep">·</span><a href="https://www.feyalabanza.com" target="_blank">FYA</a></p>
+  <p>© 2026 <a href="#">veraxIA SpA</a><span class="footer-sep">·</span><a href="https://www.feyalabanza.com" target="_blank">Fe y Alabanza</a></p>
   <p style="margin-top:6px;font-size:12px;font-style:italic;opacity:0.5;">
     <span class="es">Porque nadie debería perderse sin que alguien lo note.</span>
     <span class="en">Because no one should be lost without someone noticing.</span>
   </p>
 </footer>
 
-<!-- ══════════════ FLOAT BUTTON ══════════════ -->
+<!-- FLOAT BUTTON -->
 <button class="float-chat" onclick="openChat()">
   🕊️ <span class="es">Hablar ahora</span><span class="en">Talk now</span>
 </button>
 
-<!-- ══════════════ CHAT MODAL ══════════════ -->
+<!-- CHAT MODAL -->
 <div class="chat-overlay" id="chatOverlay" onclick="overlayClick(event)">
   <div class="chat-modal">
     <div class="chat-header">
@@ -574,7 +307,7 @@ body.lang-en span.en{display:inline;}
         <div class="chat-avatar">🧭</div>
         <div>
           <h3>Your Path</h3>
-          <p><span class="es">Acompañamiento espiritual · veraxIA</span><span class="en">Spiritual companionship · veraxIA</span></p>
+          <p><span class="es">Aquí para ti, siempre.</span><span class="en">Here for you, always.</span></p>
         </div>
       </div>
       <button class="close-btn" onclick="closeChat()">✕</button>
@@ -586,15 +319,10 @@ body.lang-en span.en{display:inline;}
       </div>
     </div>
     <div class="chat-input-area">
-      <textarea id="chatInput" rows="1"
-        placeholder="Escribe aquí… / Write here…"
-        onkeydown="chatKey(event)"
-        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"
-      ></textarea>
+      <textarea id="chatInput" rows="1" placeholder="Escribe aquí… / Write here…" onkeydown="chatKey(event)" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
       <button class="chat-send" id="chatSend" onclick="sendChat()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
       </button>
     </div>
@@ -602,7 +330,6 @@ body.lang-en span.en{display:inline;}
 </div>
 
 <script>
-// ─── LANGUAGE ─────────────────────────────────────────────
 function setLang(l){
   document.body.className='lang-'+l;
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
@@ -616,10 +343,7 @@ function setLang(l){
   else setLang('es');
 })();
 
-// ─── CHAT ─────────────────────────────────────────────────
-// ⚠️ Reemplaza con la URL real de tu Railway + /chat
-const API_URL = "https://brujulamvp-production.up.railway.app/chat";
-
+const API_URL="https://brujulamvp-production.up.railway.app/chat";
 let uid=sessionStorage.getItem('yp_uid');
 if(!uid){uid='web_'+Math.random().toString(36).slice(2,10);sessionStorage.setItem('yp_uid',uid);}
 
@@ -632,7 +356,6 @@ function addMsg(txt,role){
   const b=document.createElement('div');b.className='chat-bubble';b.textContent=txt;
   w.appendChild(b);
   const m=document.getElementById('chatMessages');m.appendChild(w);m.scrollTop=99999;
-  return w;
 }
 function showTyping(){
   const w=document.createElement('div');w.className='chat-msg bot';
