@@ -127,7 +127,9 @@ h2 em{font-style:italic;color:var(--sage);}
 .founder-card{background:var(--white);border:1px solid var(--border);border-radius:24px;padding:32px 28px;position:relative;overflow:hidden;}
 .founder-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--sage),var(--sky));}
 .founder-card.dany::before{background:linear-gradient(90deg,var(--rose),var(--gold));}
-.founder-flag{font-size:30px;margin-bottom:12px;display:block;}
+.founder-photo-wrap{position:relative;width:110px;height:110px;margin:0 0 18px;}
+.founder-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--white);box-shadow:0 4px 18px rgba(0,0,0,0.14);}
+.founder-flag-badge{position:absolute;bottom:-3px;right:-3px;width:34px;height:34px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.18);border:2px solid var(--white);}
 .founder-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
 .founder-role{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:20px;font-weight:600;}
 .founder-card.dany .founder-role{color:var(--rose);}
@@ -328,7 +330,10 @@ body.lang-pt span.pt{display:inline;}
     <h2><span class="es">Dos historias reales, <em>una misión</em></span><span class="en">Two real stories, <em>one mission</em></span><span class="pt">Duas histórias reais, <em>uma missão</em></span></h2>
     <div class="founders">
       <div class="founder-card">
-        <span class="founder-flag">🇺🇸</span>
+        <div class="founder-photo-wrap">
+          <img src="melissa-founder.jpg" alt="Melissa Reyes Maldonado" class="founder-photo" width="500" height="500" loading="lazy" decoding="async">
+          <span class="founder-flag-badge">🇺🇸</span>
+        </div>
         <div class="founder-name">Melissa Reyes Maldonado</div>
         <div class="founder-role"><span class="es">Cofundadora · USA</span><span class="en">Co-founder · USA</span><span class="pt">Cofundadora · EUA</span></div>
         <div class="founder-text es">
@@ -351,7 +356,10 @@ body.lang-pt span.pt{display:inline;}
         </div>
       </div>
       <div class="founder-card dany">
-        <span class="founder-flag">🇨🇱</span>
+        <div class="founder-photo-wrap">
+          <img src="daniela-founder.jpg" alt="Daniela Morán Brito" class="founder-photo" width="500" height="500" loading="lazy" decoding="async">
+          <span class="founder-flag-badge">🇨🇱</span>
+        </div>
         <div class="founder-name">Daniela Morán Brito</div>
         <div class="founder-role"><span class="es">Cofundadora · Villa Alegre, Chile</span><span class="en">Co-founder · Villa Alegre, Chile</span><span class="pt">Cofundadora · Villa Alegre, Chile</span></div>
         <div class="founder-text es">
@@ -468,7 +476,7 @@ body.lang-pt span.pt{display:inline;}
     <p class="section-label">🌿 <span class="es">Apoya la misión</span><span class="en">Support the mission</span><span class="pt">Apoie a missão</span></p>
     <h2><span class="es">Tu apoyo lleva luz <em>más lejos</em></span><span class="en">Your support carries light <em>further</em></span><span class="pt">Seu apoio leva luz <em>mais longe</em></span></h2>
     <p><span class="es">Your Path Now llega donde otros no llegan. Cada aporte nos ayuda a seguir disponibles para quien más lo necesita.</span><span class="en">Your Path Now reaches where others don't. Every contribution helps us stay available for those who need it most.</span><span class="pt">Your Path Now chega onde outros não chegam. Cada contribuição nos ajuda a continuar disponíveis para quem mais precisa.</span></p>
-    <a class="btn btn-rose" href="https://checkout.square.site/merchant/MLXG45VWJ1A94/checkout/VI3CQY52LX52S6QUANGTAZAV?src=sheet" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','click_donar');}">
+    <a class="btn btn-rose" href="https://checkout.square.site/merchant/MLXG45VWJ1A94/checkout/VI3CQY52LX52S6QUANGTAZAV?src=sheet" target="_blank" rel="noopener" onclick="trackClick('donar')">
       💛 <span class="es">Donar</span><span class="en">Donate</span><span class="pt">Doar</span>
     </a>
   </div>
@@ -489,7 +497,7 @@ body.lang-pt span.pt{display:inline;}
     <span class="en">Alonso RR writes from a place many have been but few dare to name. His poems come from faith, honest pain, and the return to God. A voice that walks quietly beside you.</span>
     <span class="pt">Alonso RR escreve a partir de um lugar onde muitos já estiveram, mas poucos ousam nomear. Seus poemas nascem da fé, da dor honesta e do reencontro com Deus. Uma voz que acompanha em silêncio.</span>
   </p>
-  <a href="https://site.zapia.com/6kcavq6l?utm_source=yourpathnow&utm_medium=web&utm_campaign=poeta" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','click_poema_alonso',{link_url:this.href});}" style="display:inline-block;padding:13px 32px;border:1.5px solid #b5956a;border-radius:50px;font-family:'Playfair Display',serif;font-size:15px;color:#7a5a2a;text-decoration:none;background:rgba(181,149,106,0.08);">
+  <a href="https://site.zapia.com/6kcavq6l?utm_source=yourpathnow&utm_medium=web&utm_campaign=poeta" target="_blank" rel="noopener" onclick="trackClick('alonso')" style="display:inline-block;padding:13px 32px;border:1.5px solid #b5956a;border-radius:50px;font-family:'Playfair Display',serif;font-size:15px;color:#7a5a2a;text-decoration:none;background:rgba(181,149,106,0.08);">
     📖 <span class="es">Leer sus poemas</span><span class="en">Read his poems</span><span class="pt">Ler seus poemas</span>
   </a>
 </section>
@@ -622,8 +630,14 @@ function setLang(l){
 
 const API_URL="https://brujulamvp-production.up.railway.app/chat";
 const REGISTER_URL="https://brujulamvp-production.up.railway.app/register";
+const TRACK_URL="https://brujulamvp-production.up.railway.app/track-click";
 let uid=sessionStorage.getItem('yp_uid');
 if(!uid){uid='web_'+Math.random().toString(36).slice(2,10);sessionStorage.setItem('yp_uid',uid);}
+
+function trackClick(eventName){
+  if(typeof gtag==='function'){ gtag('event','click_'+eventName); }
+  fetch(TRACK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:eventName,user_id:uid})}).catch(function(){ /* no bloquea el link si el backend falla */ });
+}
 
 function openChat(){
   const reg=localStorage.getItem('yp_registered');
