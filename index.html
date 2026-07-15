@@ -519,7 +519,7 @@ body.lang-pt span.pt{display:inline;}
     </p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
       <button class="btn btn-sage" onclick="openChat()">🕊️ <span class="es">Quiero hablar</span><span class="en">I want to talk</span><span class="pt">Quero falar</span></button>
-      <a class="btn btn-outline" href="mailto:yourpath1985@gmail.com">🤝 <span class="es">Hablar con una persona</span><span class="en">Talk to a person</span><span class="pt">Falar com uma pessoa</span></a>
+      <button class="btn btn-outline" onclick="openAyuda()">🤝 <span class="es">Hablar con una persona</span><span class="en">Talk to a person</span><span class="pt">Falar com uma pessoa</span></button>
     </div>
     <p style="margin-top:22px;font-size:14.5px;color:var(--text-soft);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">
       <span class="es">Este espacio es un primer paso, no un reemplazo de la comunidad. Si quieres conocer a personas reales que caminan en fe, podemos conectarte con una <a href="https://www.feyalabanza.com" target="_blank" rel="noopener" style="color:var(--sage);font-weight:600;">comunidad cercana</a>.</span>
@@ -671,6 +671,29 @@ body.lang-pt span.pt{display:inline;}
     <div id="crisisResources"></div>
 
     <p class="crisis-disclaimer" id="crisisDisclaimer">Your Path Now es un espacio de acompañamiento, no un servicio de emergencia. Si tú u otra persona están en peligro inmediato, contacta a los servicios de emergencia de tu país.</p>
+  </div>
+</div>
+
+<div class="crisis-overlay" id="ayudaOverlay" onclick="ayudaOverlayClick(event)">
+  <div class="crisis-modal">
+    <button class="crisis-close" onclick="closeAyuda()" aria-label="Cerrar">✕</button>
+    <h3><span class="es">¿Quieres que alguien te escriba?</span><span class="en">Want someone to reach out?</span><span class="pt">Quer que alguém entre em contato?</span></h3>
+    <p class="cm-lead"><span class="es">Déjanos cómo contactarte y alguien de nuestro equipo te va a escribir directamente. No es automático — es una persona real.</span><span class="en">Leave us a way to reach you and someone from our team will write to you directly. This isn't automatic — it's a real person.</span><span class="pt">Deixe-nos uma forma de contato e alguém da nossa equipe vai falar com você diretamente. Não é automático — é uma pessoa real.</span></p>
+
+    <div id="ayudaForm">
+      <input type="text" id="ayudaContacto" placeholder="Tu email, WhatsApp o Telegram" style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1.5px solid #e6b89c;font-size:14px;margin-bottom:12px;font-family:'Nunito',sans-serif;">
+      <button class="cb-btn" style="width:100%;justify-content:center;border:none;cursor:pointer;" onclick="enviarSolicitudAyuda()">
+        <span class="es">Enviar</span><span class="en">Send</span><span class="pt">Enviar</span> →
+      </button>
+    </div>
+    <p id="ayudaGracias" style="display:none;color:#8a3a1a;font-weight:700;text-align:center;padding:16px 0;">
+      <span class="es">Gracias — alguien te va a escribir pronto. 🤍</span><span class="en">Thank you — someone will reach out soon. 🤍</span><span class="pt">Obrigado — alguém vai entrar em contato em breve. 🤍</span>
+    </p>
+
+    <p class="crisis-disclaimer">
+      <span class="es">¿Prefieres escribirnos directo? </span><span class="en">Prefer to email us directly? </span><span class="pt">Prefere nos escrever diretamente? </span>
+      <a href="mailto:yourpath1985@gmail.com" style="color:#c9553a;font-weight:700;">yourpath1985@gmail.com</a>
+    </p>
   </div>
 </div>
 
@@ -938,6 +961,34 @@ function openCrisis(){
 }
 function closeCrisis(){ document.getElementById('crisisOverlay').classList.remove('open'); }
 function crisisOverlayClick(e){ if(e.target===e.currentTarget) closeCrisis(); }
+
+function openAyuda(){
+  document.getElementById('ayudaForm').style.display='block';
+  document.getElementById('ayudaGracias').style.display='none';
+  document.getElementById('ayudaContacto').value='';
+  document.getElementById('ayudaOverlay').classList.add('open');
+}
+function closeAyuda(){ document.getElementById('ayudaOverlay').classList.remove('open'); }
+function ayudaOverlayClick(e){ if(e.target===e.currentTarget) closeAyuda(); }
+
+async function enviarSolicitudAyuda(){
+  const contacto = document.getElementById('ayudaContacto').value.trim();
+  if(!contacto) return;
+  try{
+    await fetch(API_URL.replace('/chat','/solicitar-ayuda'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        user_id: uid,
+        categoria: 'solicitud_directa',
+        mensaje: 'Pidió que le escriban desde el botón "Hablar con una persona".',
+        contacto: contacto
+      })
+    });
+  }catch(e){}
+  document.getElementById('ayudaForm').style.display='none';
+  document.getElementById('ayudaGracias').style.display='block';
+}
 
 // Keyword-based risk detection across the site's languages. Intentionally broad —
 // false positives just show a caring banner, which is acceptable; misses are not.
