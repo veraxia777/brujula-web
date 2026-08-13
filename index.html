@@ -732,6 +732,19 @@
 </div>
 
 <script>
+// ── TRACKING DE ORIGEN POR QR ──────────────────────────────
+// Lee ?origen=xxx de la URL (viene del QR) y lo guarda en la sesión.
+// Se envía al backend cuando el usuario se registra o salta el registro.
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const origenUrl = params.get('origen');
+  if(origenUrl) sessionStorage.setItem('yp_origen', origenUrl);
+})();
+function getOrigen(){
+  return sessionStorage.getItem('yp_origen') || 'directo';
+}
+// ── FIN TRACKING ────────────────────────────────────────────
+
 const I18N = {
   es:{q:"¿Qué está pasando hoy en tu vida?",
     greet:{ansiedad:"Gracias por decirlo. La ansiedad puede sentirse como si no pudieras apagarla. Cuéntame qué la está encendiendo hoy — no necesitas ordenarlo, solo empezar.",decision:"Entiendo. Cuando no sabemos qué camino tomar, quedarnos quietos también pesa. Cuéntame de qué se trata esta decisión.",relacion:"Lamento que estés pasando por esto. Las relaciones que se rompen duelen distinto a todo lo demás. ¿Qué está pasando entre ustedes ahora mismo?",adiccion:"Gracias por confiar esto aquí, no es fácil decirlo. No estás aquí para que te juzguen, sino para que te escuchen. ¿Desde cuándo sientes que perdiste el control?",soledad:"La soledad puede sentirse muy pesada, incluso rodeado de gente. ¿Qué la hace sentir más fuerte estos días?",sentido:"Cuando nada parece tener sentido, hasta seguir el día se vuelve difícil. ¿Desde cuándo lo sientes así?",otro:"Te escucho. Cuéntame con tus propias palabras qué está pasando, no hay una forma correcta de empezar."}},
@@ -777,6 +790,8 @@ function skipRegister(){
   localStorage.setItem('yp_registered', JSON.stringify({name:'', email:'', anon:true}));
   closeRegister();
   openCategoryPicker();
+  // Registra sesión anónima con su origen
+  fetch(REGISTER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'',email:'',user_id:uid,anon:true,origen:getOrigen()})}).catch(function(){});
 }
 
 async function submitRegister(){
@@ -788,7 +803,7 @@ async function submitRegister(){
   err.classList.remove('show');
   localStorage.setItem('yp_registered', JSON.stringify({name:name,email:email}));
   try{
-    await fetch(REGISTER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,user_id:uid})});
+    await fetch(REGISTER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,user_id:uid,origen:getOrigen()})});
   }catch(e){ }
   closeRegister();
   openCategoryPicker();
