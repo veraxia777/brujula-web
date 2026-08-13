@@ -4,16 +4,58 @@ from dotenv import load_dotenv
 from ai_engine import generate_response
 import uuid
 import re
+import os
+from datetime import datetime
+
+# Google Sheets (solo si tienes GOOGLE_CREDENTIALS en Railway)
+try:
+    import gspread
+    from google.oauth2.service_account import Credentials
+    import json
+
+    _creds_json = os.environ.get("GOOGLE_CREDENTIALS")
+    _sheet_id   = os.environ.get("GOOGLE_SHEET_ID")
+
+    if _creds_json and _sheet_id:
+        _creds = Credentials.from_service_account_info(
+            json.loads(_creds_json),
+            scopes=["https://www.googleapis.com/auth/spreadsheets"]
+        )
+        _gc = gspread.authorize(_creds)
+        _spreadsheet = _gc.open_by_key(_sheet_id)
+
+        # Pestaña principal de registros
+        try:
+            _sheet_registros = _spreadsheet.worksheet("Registros")
+        except gspread.WorksheetNotFound:
+            _sheet_registros = _spreadsheet.sheet1
+
+        # Pestaña de tracking por institución (QR)
+        try:
+            _sheet_origenes = _spreadsheet.worksheet("Origenes")
+        except gspread.WorksheetNotFound:
+            _sheet_origenes = _spreadsheet.add_worksheet("Origenes", rows=1000, cols=5)
+            _sheet_origenes.append_row(["fecha", "origen", "user_id", "nombre", "email"])
+
+        SHEETS_OK = True
+        print("[sheets] Conexión a Google Sheets OK")
+    else:
+        SHEETS_OK = False
+        print("[sheets] Sin credenciales — modo solo log")
+
+except ImportError:
+    SHEETS_OK = False
+    print("[sheets] gspread no instalado — modo solo log")
 
 load_dotenv()
+
 app = Flask(__name__)
-CORS(app)  # Permite conexión desde Vercel
+CORS(app)
 
 # ------------------------------------------------------------
-# CAPA DE CRISIS (lado del servidor) — respaldo del frontend
-# Detecta señales de riesgo aunque el navegador falle o alguien
-# use la API directamente. Recursos verificados (julio 2026).
+# CAPA DE CRISIS (lado del servidor)
 # ------------------------------------------------------------
+
 CRISIS_PATTERNS = [
     r"\b(kill myself|end my life|want to die|suicid|don'?t want to (live|be here)|"
     r"better off dead|no reason to live|hurt myself|harm myself|take my (own )?life)\b",
@@ -25,10 +67,8 @@ CRISIS_PATTERNS = [
 ]
 _CRISIS_RE = [re.compile(p, re.IGNORECASE) for p in CRISIS_PATTERNS]
 
-
 def is_crisis(text):
     return any(rx.search(text or "") for rx in _CRISIS_RE)
-
 
 CRISIS_REPLY = {
     "es": (
@@ -62,6 +102,9 @@ CRISIS_REPLY = {
     ),
 }
 
+# ------------------------------------------------------------
+# RUTAS
+# ------------------------------------------------------------
 
 @app.route("/", methods=["GET"])
 def home():
@@ -79,22 +122,18 @@ def chat():
         return jsonify({"error": "Mensaje vacío"}), 400
 
     user_id = data.get("user_id", f"web_{uuid.uuid4().hex[:8]}")
-    lang = data.get("lang", "es")
-    silent = data.get("silent", False)
+    lang    = data.get("lang", "es")
+    silent  = data.get("silent", False)
 
-    # 1) Mensaje "silent" de contexto (categoría elegida en el frontend).
-    #    No debe generar respuesta visible. Se pasa como contexto al motor
-    #    para que la próxima respuesta ya sepa de qué se trata.
+    # Mensaje de contexto (categoría elegida en el frontend)
     if silent or user_message.startswith("[context]"):
         try:
-            # Se envía al motor marcado como contexto; devolvemos vacío al frontend.
             generate_response(user_id, user_message)
         except Exception:
             pass
         return jsonify({"reply": "", "silent": True, "user_id": user_id})
 
-    # 2) Detección de crisis del lado del servidor (respaldo).
-    #    Aunque el modelo respondiera mal, el usuario recibe recursos reales.
+    # Detección de crisis
     if is_crisis(user_message):
         return jsonify({
             "reply": CRISIS_REPLY.get(lang, CRISIS_REPLY["es"]),
@@ -102,7 +141,7 @@ def chat():
             "user_id": user_id
         })
 
-    # 3) Flujo normal.
+    # Flujo normal
     try:
         respuesta = generate_response(user_id, user_message)
         return jsonify({"reply": respuesta, "user_id": user_id})
@@ -110,30 +149,56 @@ def chat():
         return jsonify({"error": str(e)}), 500
 
 
-# ------------------------------------------------------------
-# Endpoints que el frontend ya llama (antes fallaban en silencio).
-# Guardado mínimo; ajusta a tu base de datos si más adelante quieres persistir.
-# ------------------------------------------------------------
 @app.route("/register", methods=["POST"])
 def register():
-    data = request.get_json() or {}
-    name = (data.get("name") or "").strip()
-    email = (data.get("email") or "").strip()
-    user_id = data.get("user_id", f"web_{uuid.uuid4().hex[:8]}")
-    # TODO: si quieres, guarda aquí name/email/user_id en tu base de datos.
-    print(f"[register] {user_id} | {name} | {email}")
+    data    = request.get_json() or {}
+    name    = (data.get("name")    or "").strip()
+    email   = (data.get("email")   or "").strip()
+    user_id = data.get("user_id",  f"web_{uuid.uuid4().hex[:8]}")
+    origen  = (data.get("origen")  or "directo").strip()  # 🆕 QR tracking
+    anon    = data.get("anon", False)
+    fecha   = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+    print(f"[register] {fecha} | {user_id} | {name} | {email} | origen={origen}")
+
+    # Guardar en Google Sheets si está disponible
+    if SHEETS_OK:
+        try:
+            # Pestaña "Origenes" — conteo por institución (QR)
+            _sheet_origenes.append_row([fecha, origen, user_id, name, email])
+
+            # Pestaña "Registros" — registro principal (si lo usas)
+            # _sheet_registros.append_row([fecha, user_id, name, email, origen, str(anon)])
+
+        except Exception as e:
+            print(f"[register] Error escribiendo en Sheets: {e}")
+
     return jsonify({"ok": True, "user_id": user_id})
 
 
 @app.route("/track-click", methods=["POST"])
 def track_click():
-    data = request.get_json() or {}
-    event = (data.get("event") or "").strip()
-    user_id = data.get("user_id", "anon")
+    data    = request.get_json() or {}
+    event   = (data.get("event")   or "").strip()
+    user_id = data.get("user_id",  "anon")
     print(f"[track-click] {user_id} | {event}")
+    return jsonify({"ok": True})
+
+
+@app.route("/solicitar-ayuda", methods=["POST"])
+def solicitar_ayuda():
+    """
+    El frontend llama aquí cuando alguien pide que un humano le escriba.
+    Por ahora loguea — aquí puedes agregar un email o WhatsApp alert.
+    """
+    data     = request.get_json() or {}
+    contacto = (data.get("contacto") or "").strip()
+    user_id  = data.get("user_id",  "anon")
+    fecha    = datetime.now().strftime("%Y-%m-%d %H:%M")
+    print(f"[solicitar-ayuda] {fecha} | {user_id} | {contacto}")
+    # TODO: enviar notificación a Meli / Daniela (email, WhatsApp, etc.)
     return jsonify({"ok": True})
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
-
