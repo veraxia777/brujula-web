@@ -53,7 +53,12 @@
   nav.links ul{display:flex;gap:26px;list-style:none;font-size:.9rem;color:var(--ink-soft);}
   nav.links a:hover{color:var(--sage-deep);}
   .nav-right{display:flex;align-items:center;gap:14px;}
-  .lang-select{font-size:.85rem;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--paper);cursor:pointer;}
+  .lang-custom{position:relative;}
+  .lang-btn{font-size:.85rem;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--paper);cursor:pointer;font-family:inherit;color:var(--ink);display:flex;align-items:center;gap:4px;}
+  .lang-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);overflow:hidden;z-index:200;min-width:96px;}
+  .lang-menu.open{display:block;}
+  .lang-menu button{display:block;width:100%;padding:9px 16px;border:none;background:none;cursor:pointer;font-size:.85rem;text-align:left;font-family:inherit;color:var(--ink);}
+  .lang-menu button:hover{background:var(--cream);}
   .btn{font-size:.88rem;font-weight:600;padding:11px 22px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:1px solid transparent;transition:transform .15s ease;}
   .btn:hover{transform:translateY(-1px);}
   .btn-dark{background:var(--ink-deep);color:#fff;}
@@ -286,10 +291,15 @@
       <li><a href="#invitacion"><span class="es">Conversemos</span><span class="en">Let's talk</span><span class="pt">Vamos conversar</span></a></li>
     </ul></nav>
     <div class="nav-right">
-      <select class="lang-select" id="langSelect" onchange="setLang(this.value)">
-        <option value="es">🇪🇸 ES</option><option value="en">🇺🇸 EN</option><option value="pt">🇧🇷 PT</option>
-      </select>
-      <button class="btn btn-dark" onclick="openChat()">💬 <span class="es">Conversemos</span><span class="en">Let's talk</span><span class="pt">Vamos conversar</span></button>
+      <div class="lang-custom" id="langDropdown">
+        <button class="lang-btn" onclick="toggleLangMenu(event)" id="langCurrent">🇪🇸 ES ▾</button>
+        <div class="lang-menu" id="langMenu">
+          <button onclick="setLang('es')">🇪🇸 ES</button>
+          <button onclick="setLang('en')">🇺🇸 EN</button>
+          <button onclick="setLang('pt')">🇧🇷 PT</button>
+        </div>
+      </div>
+      <button class="btn btn-sage" onclick="openChat()" style="display:flex;align-items:center;gap:8px;"><img src="https://www.yourpathnow.org/compass-chat.jpg" alt="" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,0.5);flex-shrink:0;"> <span class="es">Conversemos</span><span class="en">Let's talk</span><span class="pt">Vamos conversar</span></button>
     </div>
   </div>
 </header>
@@ -723,9 +733,21 @@ const I18N = {
 function setLang(code){
   window.ypLang = code;
   document.body.className = 'lang-'+code;
-  document.getElementById('langSelect').value = code;
+  const labels = {es:'🇪🇸 ES ▾', en:'🇺🇸 EN ▾', pt:'🇧🇷 PT ▾'};
+  const btn = document.getElementById('langCurrent');
+  if(btn) btn.textContent = labels[code];
+  const menu = document.getElementById('langMenu');
+  if(menu) menu.classList.remove('open');
   localStorage.setItem('ypLang', code);
 }
+function toggleLangMenu(e){
+  e.stopPropagation();
+  document.getElementById('langMenu').classList.toggle('open');
+}
+document.addEventListener('click', function(){
+  const m = document.getElementById('langMenu');
+  if(m) m.classList.remove('open');
+});
 (function(){
   const saved = localStorage.getItem('ypLang');
   setLang(saved && I18N[saved] ? saved : 'es');
