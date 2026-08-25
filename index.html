@@ -78,12 +78,13 @@
   .quees-head{max-width:640px;margin-bottom:44px;}
   .quees-head h2{font-size:2rem;}
   .quees-head p{color:var(--ink-soft);margin-top:14px;font-size:1.02rem;}
-  .principios{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .principio{text-align:center;padding:26px 16px;border:1px solid var(--line);border-radius:var(--radius);}
-  .principio .icon{font-size:1.6rem;margin-bottom:10px;}
-  .principio h4{font-size:.98rem;color:var(--sage-deep);margin-bottom:6px;}
-  .principio p{font-size:.85rem;color:var(--ink-soft);}
-  @media(max-width:820px){.principios{grid-template-columns:1fr 1fr;}}
+  .principios-v2{max-width:500px;margin:48px auto 0;text-align:center;}
+  .principio-v2{padding:34px 0;}
+  .principio-v2 .ptitulo{font-family:Georgia,serif;font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:700;color:var(--sage-deep);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:7px;}
+  .principio-v2 .psubtitulo{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#b8975a;font-weight:600;display:block;}
+  .p-divider{display:flex;align-items:center;justify-content:center;gap:12px;padding:0 24px;}
+  .p-divider::before,.p-divider::after{content:'';flex:1;height:1px;background:#b8975a;opacity:.55;}
+  .p-divider span{color:#b8975a;font-size:.65rem;}
 
   .ayuda-head{text-align:center;max-width:600px;margin:0 auto 48px;}
   .ayuda-head h2{font-size:2rem;}
@@ -299,7 +300,7 @@
           <button onclick="setLang('pt')">🇧🇷 PT</button>
         </div>
       </div>
-      <button class="btn btn-sage" onclick="openChat()" style="display:flex;align-items:center;gap:8px;"><img src="https://www.yourpathnow.org/compass-chat.jpg" alt="" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,0.5);flex-shrink:0;"> <span class="es">Conversemos</span><span class="en">Let's talk</span><span class="pt">Vamos conversar</span></button>
+      <button onclick="openChat()" title="Conversemos" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"><img src="https://www.yourpathnow.org/compass-chat.jpg" alt="Conversemos" style="width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 4px 18px rgba(122,158,126,0.55);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 6px 24px rgba(122,158,126,0.75)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 18px rgba(122,158,126,0.55)'"></button>
     </div>
   </div>
 </header>
@@ -310,9 +311,7 @@
     <h1 class="es">No tienes que recorrer<br>tu camino <em>solo</em>.</h1>
     <h1 class="en">You don't have to walk<br>your path <em>alone</em>.</h1>
     <h1 class="pt">Você não precisa percorrer<br>seu caminho <em>sozinho</em>.</h1>
-    <p class="es">Un espacio seguro para conversar, encontrar orientación y dar el siguiente paso hacia una vida con esperanza.</p>
-    <p class="en">A safe space to talk, find guidance, and take the next step toward a life full of hope.</p>
-    <p class="pt">Um espaço seguro para conversar, encontrar orientação e dar o próximo passo rumo a uma vida com esperança.</p>
+
     <div class="hero-trust">
       <span class="es">🛡️ Confidencial</span><span class="en">🛡️ Confidential</span><span class="pt">🛡️ Confidencial</span>
       <span class="es">🕊️ Sin juicios</span><span class="en">🕊️ No judgment</span><span class="pt">🕊️ Sem julgamentos</span>
@@ -330,23 +329,27 @@
       <p class="en">We are a space for emotional and spiritual support that walks with you through the most important moments of your life. We believe every person has value, that no story is lost, and that there is always hope. Our purpose is to walk with you with truth, compassion, and resources that help you move forward.</p>
       <p class="pt">Somos um espaço de apoio emocional e espiritual que caminha com você nos momentos mais importantes da sua vida. Acreditamos que cada pessoa tem valor, que nenhuma história está perdida e que sempre há esperança. Nosso propósito é acompanhá-lo com verdade, compaixão e recursos que ajudem você a avançar.</p>
     </div>
-    <div class="principios">
-      <div class="principio"><div class="icon">✝️</div>
-        <h4><span class="es">Cristo es el centro</span><span class="en">Christ is the center</span><span class="pt">Cristo é o centro</span></h4>
-        <p><span class="es">Toda nuestra labor se fundamenta en el amor y la verdad de Jesucristo.</span><span class="en">All our work is grounded in the love and truth of Jesus Christ.</span><span class="pt">Todo o nosso trabalho se fundamenta no amor e na verdade de Jesus Cristo.</span></p>
+    <div class="principios-v2">
+      <div class="principio-v2">
+        <span class="ptitulo"><span class="es">Cristo</span><span class="en">Christ</span><span class="pt">Cristo</span></span>
+        <span class="psubtitulo"><span class="es">es el centro</span><span class="en">is the center</span><span class="pt">é o centro</span></span>
       </div>
-      <div class="principio"><div class="icon">🤝</div>
-        <h4><span class="es">Las personas son la misión</span><span class="en">People are the mission</span><span class="pt">As pessoas são a missão</span></h4>
-        <p><span class="es">Existimos para acompañar, servir y restaurar vidas.</span><span class="en">We exist to walk alongside, serve, and restore lives.</span><span class="pt">Existimos para acompanhar, servir e restaurar vidas.</span></p>
+      <div class="p-divider"><span>♦</span></div>
+      <div class="principio-v2">
+        <span class="ptitulo"><span class="es">Las personas</span><span class="en">People</span><span class="pt">As pessoas</span></span>
+        <span class="psubtitulo"><span class="es">son la misión</span><span class="en">are the mission</span><span class="pt">são a missão</span></span>
       </div>
-      <div class="principio"><div class="icon">💻</div>
-        <h4><span class="es">La tecnología es la herramienta</span><span class="en">Technology is the tool</span><span class="pt">A tecnologia é a ferramenta</span></h4>
-        <p><span class="es">Usamos la innovación para llegar más lejos y servir mejor.</span><span class="en">We use innovation to reach further and serve better.</span><span class="pt">Usamos a inovação para chegar mais longe e servir melhor.</span></p>
+      <div class="p-divider"><span>♦</span></div>
+      <div class="principio-v2">
+        <span class="ptitulo"><span class="es">La tecnología</span><span class="en">Technology</span><span class="pt">A tecnologia</span></span>
+        <span class="psubtitulo"><span class="es">es la herramienta</span><span class="en">is the tool</span><span class="pt">é a ferramenta</span></span>
       </div>
-      <div class="principio"><div class="icon">❤️</div>
-        <h4><span class="es">El amor es nuestra forma de servir</span><span class="en">Love is how we serve</span><span class="pt">O amor é a nossa forma de servir</span></h4>
-        <p><span class="es">Servimos con empatía, respeto y excelencia.</span><span class="en">We serve with empathy, respect, and excellence.</span><span class="pt">Servimos com empatia, respeito e excelência.</span></p>
+      <div class="p-divider"><span>♦</span></div>
+      <div class="principio-v2">
+        <span class="ptitulo"><span class="es">El amor</span><span class="en">Love</span><span class="pt">O amor</span></span>
+        <span class="psubtitulo"><span class="es">es nuestra forma de servir</span><span class="en">is how we serve</span><span class="pt">é a nossa forma de servir</span></span>
       </div>
+      <div class="p-divider"><span>♦</span></div>
     </div>
   </div>
 </section>
@@ -420,7 +423,7 @@
         <ul class="red-list">
           <li>⛪ <span class="es">Iglesias y ministerios</span><span class="en">Churches &amp; ministries</span><span class="pt">Igrejas e ministérios</span></li>
           <li>💬 <span class="es">Centros de consejería</span><span class="en">Counseling centers</span><span class="pt">Centros de aconselhamento</span></li>
-          <li>🧑‍⚕️ <span class="es">Profesionales cristianos</span><span class="en">Christian professionals</span><span class="pt">Profissionais cristãos</span></li>
+          <li>🧑‍⚕️ <span class="es">Profesionales</span><span class="en">Professionals</span><span class="pt">Profissionais</span></li>
           <li>🤝 <span class="es">Programas de apoyo</span><span class="en">Support programs</span><span class="pt">Programas de apoio</span></li>
           <li>🏛️ <span class="es">Organizaciones especializadas</span><span class="en">Specialized organizations</span><span class="pt">Organizações especializadas</span></li>
           <li>📍 <span class="es">Recursos comunitarios</span><span class="en">Community resources</span><span class="pt">Recursos comunitários</span></li>
