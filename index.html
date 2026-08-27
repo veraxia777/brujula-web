@@ -383,7 +383,7 @@
         <div class="icon">🤲</div>
         <h3><span class="es">Necesito ayuda especializada</span><span class="en">I need specialized help</span><span class="pt">Preciso de ajuda especializada</span></h3>
         <p><span class="es">Busco apoyo profesional para mi situación.</span><span class="en">I'm looking for professional support.</span><span class="pt">Busco apoio profissional para minha situação.</span></p>
-        <div class="go"><span class="es">Ver opciones →</span><span class="en">See options →</span><span class="pt">Ver opções →</span></div>
+        <div class="go"><span class="es">Contacta a una persona de nuestro equipo →</span><span class="en">Contact a member of our team →</span><span class="pt">Fale com alguém do nosso time →</span></div>
       </button>
     </div>
   </div>
@@ -609,8 +609,8 @@
       <span class="pt">Por favor, preencha seu nome e um e-mail válido.</span>
     </p>
     <button class="reg-submit" onclick="submitRegister()"><span class="es">Comenzar a hablar</span><span class="en">Start talking</span><span class="pt">Começar a falar</span></button>
-    <button class="cat-skip" style="margin-top:14px;" onclick="skipRegister()">
-      <span class="es">Prefiero empezar sin dar mis datos →</span>
+    <button onclick="skipRegister()" style="margin-top:16px;width:100%;background:transparent;border:2px solid var(--sage-dark);border-radius:50px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:700;color:var(--sage-dark);cursor:pointer;transition:all .2s;">
+      <span class="es">Prefiero continuar sin dejar mis datos →</span>
       <span class="en">I'd rather start without sharing my details →</span>
       <span class="pt">Prefiro começar sem informar meus dados →</span>
     </button>
@@ -763,6 +763,7 @@ function openChat(){
   const reg=localStorage.getItem('yp_registered');
   if(!reg){ openRegister(); return; }
   document.getElementById('chatOverlay').classList.add('open');
+  initChatGreeting();
   document.getElementById('chatInput').focus();
 }
 function closeChat(){document.getElementById('chatOverlay').classList.remove('open');}
@@ -801,6 +802,19 @@ async function submitRegister(){
 function openCategoryPicker(){ document.getElementById('catOverlay').classList.add('open'); }
 function closeCategoryPicker(){ document.getElementById('catOverlay').classList.remove('open'); }
 function catOverlayClick(e){ if(e.target===e.currentTarget) closeCategoryPicker(); }
+
+function initChatGreeting(){
+  const msgs = document.getElementById('chatMessages');
+  if(msgs && msgs.children.length === 0){
+    const lang = window.ypLang || 'es';
+    const greetings = {
+      es: "Hola, qué bueno que estás aquí. 🤍 Este es un espacio donde puedes hablar con libertad. No necesitas saber por dónde empezar ni tener las palabras correctas. ¿Qué está pasando en tu vida hoy? Puedes contarme lo que quieras. Estoy aquí para escucharte y caminar contigo.",
+      en: "Hello, I'm so glad you're here. 🤍 This is a space where you can speak freely. You don't need to know where to start or have the right words. What's going on in your life today? You can tell me anything. I'm here to listen and walk with you.",
+      pt: "Olá, que bom que você está aqui. 🤍 Este é um espaço onde você pode falar com liberdade. Você não precisa saber por onde começar nem ter as palavras certas. O que está acontecendo na sua vida hoje? Pode me contar o que quiser. Estou aqui para ouvir e caminhar com você."
+    };
+    addMsg(greetings[lang] || greetings.es, 'bot');
+  }
+}
 
 function selectCategory(key){
   closeCategoryPicker();
