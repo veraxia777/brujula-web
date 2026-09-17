@@ -777,9 +777,7 @@ function openChat(){
 function closeChat(){
     const msgs = document.getElementById('chatMessages');
     if(msgs && msgs.children.length > 2){
-      const banner = document.getElementById('review-banner');
-      if(banner){ banner.classList.add('visible'); setTimeout(()=>banner.classList.remove('visible'), 8000); }
-    }document.getElementById('chatOverlay').classList.remove('open');}
+      }document.getElementById('chatOverlay').classList.remove('open');}
 function overlayClick(e){if(e.target===e.currentTarget)closeChat();}
 
 function openRegister(){
@@ -959,9 +957,6 @@ function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat
 </script>
 
 
-<div id="review-banner">
-  <a href="https://g.page/r/CXUR2S31tJSxEBM/review" target="_blank" rel="noopener">⭐ ¿Fue útil esta conversación? Cuéntalo en Google</a>
-  <button onclick="document.getElementById('review-banner').classList.remove('visible')">✕</button>
-</div>
+
 </body>
 </html>
