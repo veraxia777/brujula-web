@@ -96,16 +96,17 @@
   .p-divider::before,.p-divider::after{content:'';flex:1;height:1px;background:#b8975a;opacity:.55;}
   .p-divider span{color:#b8975a;font-size:.65rem;}
 
-  .ayuda-head{text-align:center;max-width:600px;margin:0 auto 48px;}
+  .ayuda-head{text-align:center;max-width:600px;margin:0 auto 36px;}
   .ayuda-head h2{font-size:2rem;}
   .ayuda-head p{color:var(--ink-soft);margin-top:12px;}
-  .ayuda-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .ayuda-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;transition:box-shadow .2s ease;cursor:pointer;text-align:left;font-family:inherit;}
-  .ayuda-card:hover{box-shadow:var(--shadow);}
-  .ayuda-card .icon{width:42px;height:42px;border-radius:12px;background:rgba(122,158,126,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px;}
-  .ayuda-card h3{font-size:1.08rem;margin-bottom:8px;}
-  .ayuda-card p{font-size:.9rem;color:var(--ink-soft);margin-bottom:16px;}
-  .ayuda-card .go{font-size:.85rem;color:var(--sage-dark);font-weight:600;}
+  .ayuda-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .ayuda-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 18px;transition:box-shadow .2s ease,transform .15s ease;cursor:pointer;text-align:left;font-family:inherit;}
+  .ayuda-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+  .ayuda-card .icon{width:38px;height:38px;border-radius:10px;background:rgba(122,158,126,.12);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--sage-dark);}
+  .ayuda-card .icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .ayuda-card h3{font-size:.97rem;margin-bottom:6px;line-height:1.3;}
+  .ayuda-card p{font-size:.84rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.5;}
+  .ayuda-card .go{font-size:.82rem;color:var(--sage-dark);font-weight:600;}
   @media(max-width:900px){.ayuda-grid{grid-template-columns:1fr 1fr;}}
   @media(max-width:600px){.ayuda-grid{grid-template-columns:1fr;}}
 
@@ -381,25 +382,25 @@
     </div>
     <div class="ayuda-grid">
       <button class="ayuda-card" onclick="openChat()">
-        <div class="icon">💬</div>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <h3><span class="es">Necesito hablar con alguien</span><span class="en">I need to talk to someone</span><span class="pt">Preciso falar com alguém</span></h3>
         <p><span class="es">Estoy pasando por un momento difícil y necesito ser escuchado.</span><span class="en">I'm going through a hard time and need to be heard.</span><span class="pt">Estou passando por um momento difícil e preciso ser ouvido.</span></p>
         <div class="go"><span class="es">Empezar a hablar →</span><span class="en">Start talking →</span><span class="pt">Começar a falar →</span></div>
       </button>
       <button class="ayuda-card" onclick="openChat()">
-        <div class="icon">🌱</div>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <h3><span class="es">Quiero crecer espiritualmente</span><span class="en">I want to grow spiritually</span><span class="pt">Quero crescer espiritualmente</span></h3>
         <p><span class="es">Deseo conocer más de Dios y fortalecer mi fe.</span><span class="en">I want to know more about God and strengthen my faith.</span><span class="pt">Desejo conhecer mais de Deus e fortalecer minha fé.</span></p>
         <div class="go"><span class="es">Explorar mi fe →</span><span class="en">Explore my faith →</span><span class="pt">Explorar minha fé →</span></div>
       </button>
       <button class="ayuda-card" onclick="openChat()">
-        <div class="icon">🌧️</div>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <h3><span class="es">Estoy pasando por una crisis</span><span class="en">I'm going through a crisis</span><span class="pt">Estou passando por uma crise</span></h3>
         <p><span class="es">Necesito orientación en medio de una situación difícil.</span><span class="en">I need guidance in a difficult situation.</span><span class="pt">Preciso de orientação em meio a uma situação difícil.</span></p>
         <div class="go"><span class="es">Recibir apoyo ahora →</span><span class="en">Get support now →</span><span class="pt">Receber apoio agora →</span></div>
       </button>
       <button class="ayuda-card" onclick="openAyuda()">
-        <div class="icon">🤲</div>
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3><span class="es">Necesito ayuda especializada</span><span class="en">I need specialized help</span><span class="pt">Preciso de ajuda especializada</span></h3>
         <p><span class="es">Busco apoyo profesional para mi situación.</span><span class="en">I'm looking for professional support.</span><span class="pt">Busco apoio profissional para minha situação.</span></p>
         <div class="go"><span class="es">Ver opciones →</span><span class="en">See options →</span><span class="pt">Ver opções →</span></div>
