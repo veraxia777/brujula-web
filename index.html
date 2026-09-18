@@ -72,9 +72,11 @@
   }
 
   .hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;color:#fff;text-align:left;padding-bottom:60px;}
-  .hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(35,50,42,.35),rgba(35,50,42,.75)),url('hero.jpg') center top/cover no-repeat;}
-  @media(max-width:600px){
-    .hero-bg{background:linear-gradient(180deg,rgba(35,50,42,.2),rgba(35,50,42,.65)),url('hero-mobile.jpg') left top/cover no-repeat;}
+  .hero-mobile-img{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;z-index:0;}
+  .hero-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(35,50,42,.35),rgba(35,50,42,.75)),url('hero.jpg') center top/cover no-repeat;}
+  @media(max-width:768px){
+    .hero-mobile-img{display:block;}
+    .hero-bg{background:linear-gradient(180deg,rgba(35,50,42,.15),rgba(35,50,42,.6));}
   }
   .hero-inner{position:relative;z-index:2;max-width:640px;padding:0 28px;}
   .hero h1{color:#fff;font-size:clamp(2.3rem,5vw,3.4rem);line-height:1.12;margin-bottom:18px;}
@@ -315,6 +317,7 @@
 </header>
 
 <section class="hero" id="inicio" style="padding:0;">
+  <img src="hero-mobile.jpg" class="hero-mobile-img" alt="">
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <h1 class="es">No tienes que recorrer<br>tu camino <em>solo</em>.</h1>
